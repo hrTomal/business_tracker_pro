@@ -1,3 +1,4 @@
+import 'package:business_tracker/features/auth/presentation/pages/register_page.dart';
 import 'package:business_tracker/features/common/presentation/widgets/buttons/custom_buttons.dart';
 import 'package:business_tracker/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +37,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextField(
                 decoration: InputDecoration(
                   labelText: 'Password',
@@ -47,37 +48,49 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                 ),
                 obscureText: true,
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  textStyle: const TextStyle(fontSize: 18),
+                ),
                 child: Text(
                   'Login',
                   style: TextStyle(
                     color: Theme.of(context).primaryColorLight,
                   ),
                 ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                  textStyle: TextStyle(fontSize: 18),
-                ),
               ),
-              CustomButtonPrimary(
-                text: '',
-                height: pageHeight,
-                width: pageWidth,
-                onPressed: () {
-                  Navigator.of(context).pushNamed(Dashboard.routeName);
-                },
+              // CustomButtonPrimary(
+              //   text: '',
+              //   height: pageHeight,
+              //   width: pageWidth,
+              //   onPressed: () {
+              //     Navigator.of(context).pushNamed(Dashboard.routeName);
+              //   },
+              // ),
+              const SizedBox(height: 10),
+              const Divider(
+                height: 5,
               ),
-              SizedBox(height: 20),
-              TextButton(
+              const SizedBox(height: 10),
+              OutlinedButton.icon(
                 onPressed: () {},
-                child: Text('New user? Register Now'),
+                icon: const Icon(Icons.login),
+                label: const Text('Google Login'),
+              ),
+              const SizedBox(height: 10),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(RegisterPage.routeName);
+                },
                 style: TextButton.styleFrom(
                   backgroundColor: Theme.of(context).indicatorColor,
-                  textStyle: TextStyle(fontSize: 16),
                 ),
+                child: const Text('New user? Register Now'),
               ),
             ],
           ),

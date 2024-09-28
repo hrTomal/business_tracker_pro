@@ -23,7 +23,7 @@ class CustomButtonPrimary extends StatelessWidget {
       ),
       child: FittedBox(
         child: Text(
-          '$text${height}_$width',
+          text,
           style: TextStyle(
             color: Theme.of(context).primaryColorLight,
           ),
