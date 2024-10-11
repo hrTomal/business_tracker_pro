@@ -67,7 +67,7 @@ class _AddVendorPageState extends State<AddVendorPage> {
                   SizedBox(
                     width: dimensions.halfTextFieldWidth,
                     child: CustomDropdownSearch(
-                      items: [
+                      items: const [
                         'Option 1',
                         'Option 2',
                         'Option 3',
@@ -118,7 +118,7 @@ class _AddVendorPageState extends State<AddVendorPage> {
                   SizedBox(
                     width: dimensions.screenWidth * 0.45,
                     child: CustomRadioButtonRow(
-                      options: ['Payable', 'Receivable'],
+                      options: const ['Payable', 'Receivable'],
                       groupValue: _balanceType,
                       onChanged: (value) {
                         setState(() {

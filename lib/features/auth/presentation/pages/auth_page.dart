@@ -1,6 +1,4 @@
 import 'package:business_tracker/features/auth/presentation/pages/register_page.dart';
-import 'package:business_tracker/features/common/presentation/widgets/buttons/custom_buttons.dart';
-import 'package:business_tracker/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 
 class AuthenticationPage extends StatefulWidget {

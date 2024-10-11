@@ -12,7 +12,7 @@ class CustomDropdownSearch<T> extends StatefulWidget {
   final VoidCallback onCreateNew;
 
   const CustomDropdownSearch({
-    Key? key,
+    super.key,
     required this.items,
     this.selectedItem,
     required this.labelText,
@@ -21,7 +21,7 @@ class CustomDropdownSearch<T> extends StatefulWidget {
     this.onChanged,
     required this.itemAsString,
     required this.onCreateNew,
-  }) : super(key: key);
+  });
 
   @override
   _CustomDropdownSearchState<T> createState() =>
@@ -57,7 +57,7 @@ class _CustomDropdownSearchState<T> extends State<CustomDropdownSearch<T>> {
           setState(() {
             _selectedItem = value as T?;
             if (widget.onChanged != null) {
-              widget.onChanged!(value as T?);
+              widget.onChanged!(value);
             }
           });
         }

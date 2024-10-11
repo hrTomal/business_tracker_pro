@@ -27,14 +27,14 @@ class RegisterResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['username'] = this.username;
-    data['email'] = this.email;
-    data['first_name'] = this.firstName;
-    data['last_name'] = this.lastName;
-    data['access'] = this.access;
-    data['refresh'] = this.refresh;
-    data['message'] = this.message;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['username'] = username;
+    data['email'] = email;
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['access'] = access;
+    data['refresh'] = refresh;
+    data['message'] = message;
     return data;
   }
 }

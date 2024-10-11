@@ -34,7 +34,7 @@ class _AllProductsState extends State<AllProducts> {
   @override
   Widget build(BuildContext context) {
     final dimensions = AppDimensions(context);
-    var _productCount = 10;
+    var productCount = 10;
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Products',
@@ -49,8 +49,7 @@ class _AllProductsState extends State<AllProducts> {
           ),
         ],
       ),
-      floatingActionButton:
-          _productCount < 1 ? null : const _addProductButton(),
+      floatingActionButton: productCount < 1 ? null : const _addProductButton(),
       body: Padding(
         padding: dimensions.pagePaddingGlobal,
         child: Column(
@@ -88,9 +87,11 @@ class _AllProductsState extends State<AllProducts> {
               ],
             ),
             const FixedSizedBox(),
-            _productCount > 0
+            productCount > 0
                 ? Expanded(
-                    child: _isGridView ? ProductsGridView() : ProductListView(),
+                    child: _isGridView
+                        ? const ProductsGridView()
+                        : const ProductListView(),
                   )
                 : Expanded(
                     child: Center(
@@ -116,9 +117,7 @@ class _AllProductsState extends State<AllProducts> {
 }
 
 class _addProductButton extends StatelessWidget {
-  const _addProductButton({
-    super.key,
-  });
+  const _addProductButton();
 
   @override
   Widget build(BuildContext context) {

@@ -1,12 +1,9 @@
 import 'package:business_tracker/config/styles/app_dimensions.dart';
-import 'package:business_tracker/features/auth/domain/repositories/AuthenticationRepository.dart';
 import 'package:business_tracker/features/auth/presentation/blocs/register/register_bloc.dart';
 import 'package:business_tracker/features/auth/presentation/blocs/register/register_event.dart';
 import 'package:business_tracker/features/auth/presentation/blocs/register/register_state.dart';
 import 'package:business_tracker/features/auth/presentation/pages/auth_page.dart';
-import 'package:business_tracker/features/common/presentation/widgets/CustomAppBar/custom_app_bar.dart';
 import 'package:business_tracker/features/common/presentation/widgets/buttons/custom_buttons.dart';
-import 'package:business_tracker/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -66,7 +63,7 @@ class _RegisterPageState extends State<RegisterPage> {
               padding: dimensions.pagePaddingGlobal,
               child: Center(
                 child: SingleChildScrollView(
-                  physics: ClampingScrollPhysics(),
+                  physics: const ClampingScrollPhysics(),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,

@@ -22,7 +22,7 @@ class _AddWarehousePageState extends State<AddWarehousePage> {
     final textFieldController = _initTextFieldControllers();
 
     return Scaffold(
-      appBar: CustomAppBar(title: 'Add Warehouse'),
+      appBar: const CustomAppBar(title: 'Add Warehouse'),
       floatingActionButton: CustomSaveFloatingActionButton(
         onPressed: () => _onSavePressed(context, textFieldController),
       ),

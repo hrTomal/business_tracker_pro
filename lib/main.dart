@@ -4,6 +4,7 @@ import 'package:business_tracker/core/storage/token_storage.dart';
 import 'package:business_tracker/core/utils/service_locator.dart';
 import 'package:business_tracker/features/auth/presentation/blocs/register/register_bloc.dart';
 import 'package:business_tracker/features/auth/presentation/pages/register_page.dart';
+import 'package:business_tracker/features/company/presentation/pages/create_company.dart';
 import 'package:business_tracker/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +35,8 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -56,25 +59,27 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget _buildHome() {
-    TokenStorage _tokenStorage = TokenStorage();
+    TokenStorage tokenStorage = TokenStorage();
 
     return FutureBuilder<String?>(
-      future: _tokenStorage.getAccessToken(),
+      future: tokenStorage.getAccessToken(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: const CircularProgressIndicator(),
+          return const Center(
+            child: CircularProgressIndicator(),
           );
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else {
           String? accessToken = snapshot.data;
 
-          if (accessToken != null) {
-            return Dashboard(); // User is logged in
-          } else {
-            return RegisterPage(); // User is not logged in
-          }
+          // if (accessToken != null) {
+          //   return const Dashboard(); // User is logged in
+          // } else {
+          //   return const CreateCompanyPage(); // User is not logged in
+          // }
+
+          return const CreateCompanyPage();
         }
       },
     );

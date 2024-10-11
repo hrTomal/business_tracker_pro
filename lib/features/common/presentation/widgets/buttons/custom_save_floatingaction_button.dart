@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class CustomSaveFloatingActionButton extends StatelessWidget {
   final VoidCallback onPressed;
 
-  const CustomSaveFloatingActionButton({Key? key, required this.onPressed})
-      : super(key: key);
+  const CustomSaveFloatingActionButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {

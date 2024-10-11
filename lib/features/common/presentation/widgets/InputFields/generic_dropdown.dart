@@ -9,14 +9,14 @@ class GenericDropdownButton<T> extends StatefulWidget {
   final String? hint;
 
   const GenericDropdownButton({
-    Key? key,
+    super.key,
     required this.items,
     required this.value,
     required this.onChanged,
     this.width,
     this.height,
     this.hint,
-  }) : super(key: key);
+  });
 
   @override
   State<GenericDropdownButton<T>> createState() =>
@@ -31,7 +31,7 @@ class _GenericDropdownButtonState<T> extends State<GenericDropdownButton<T>> {
     return Container(
       width: widget.width,
       height: widget.height,
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
       // decoration: BoxDecoration(
       //   border: Border.all(
       //     width: 2,

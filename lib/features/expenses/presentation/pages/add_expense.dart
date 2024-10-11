@@ -47,7 +47,7 @@ class _AddCategoriesState extends State<AddExpense> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CustomDropdownSearch(
-                items: [
+                items: const [
                   'Option 1',
                   'Option 2',
                   'Option 3',
@@ -80,7 +80,7 @@ class _AddCategoriesState extends State<AddExpense> {
               const FixedSizedBox(),
               Row(
                 children: [
-                  Text(
+                  const Text(
                     'Payment Method',
                     // style: Theme.of(context).textTheme.labelMedium,
                   ),

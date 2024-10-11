@@ -6,7 +6,8 @@ class CustomButtonPrimary extends StatelessWidget {
   final double? width;
   final VoidCallback onPressed;
 
-  CustomButtonPrimary({
+  const CustomButtonPrimary({
+    super.key,
     required this.text,
     required this.onPressed,
     this.height,
@@ -19,7 +20,7 @@ class CustomButtonPrimary extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: Theme.of(context).primaryColor,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       ),
       child: FittedBox(
         child: Text(

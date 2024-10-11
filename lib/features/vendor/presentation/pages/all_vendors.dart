@@ -13,9 +13,9 @@ class AllVendorsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var dimensions = AppDimensions(context);
-    var _vendorCount = 0;
+    var vendorCount = 0;
 
-    var _floatingActionButton = FloatingActionButton.extended(
+    var floatingActionButton = FloatingActionButton.extended(
       onPressed: () {
         Navigator.of(context).pushNamed(AddVendorPage.routeName);
       },
@@ -27,10 +27,10 @@ class AllVendorsPage extends StatelessWidget {
       appBar: const CustomAppBar(
         title: 'All Vendors',
       ),
-      floatingActionButton: _vendorCount != 0 ? _floatingActionButton : null,
+      floatingActionButton: vendorCount != 0 ? floatingActionButton : null,
       body: Padding(
         padding: dimensions.pagePaddingGlobal,
-        child: _vendorCount == 0
+        child: vendorCount == 0
             ? Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -42,12 +42,12 @@ class AllVendorsPage extends StatelessWidget {
                       ),
                     ),
                     const FixedSizedBox(),
-                    _floatingActionButton,
+                    floatingActionButton,
                   ],
                 ),
               )
             : ListView.builder(
-                itemCount: _vendorCount,
+                itemCount: vendorCount,
                 itemBuilder: (context, index) {
                   return VendorListViewCard(
                     imageUrl: 'https://via.placeholder.com/150',

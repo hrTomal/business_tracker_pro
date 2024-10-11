@@ -7,11 +7,11 @@ class GenericDashboardCard extends StatelessWidget {
   final List<Widget> gridItems;
 
   const GenericDashboardCard({
-    Key? key,
+    super.key,
     required this.title,
     this.dropdown,
     required this.gridItems,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

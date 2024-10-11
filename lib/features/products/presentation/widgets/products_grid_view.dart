@@ -9,7 +9,7 @@ class ProductsGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var pageWidth = MediaQuery.of(context).size.width;
-    var _itemCount = 10;
+    var itemCount = 10;
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: _getCrossAxisCount(pageWidth),
@@ -17,7 +17,7 @@ class ProductsGridView extends StatelessWidget {
         mainAxisSpacing: 6.0,
         childAspectRatio: 0.64,
       ),
-      itemCount: _itemCount,
+      itemCount: itemCount,
       itemBuilder: (context, index) {
         return ProductCard(
           imageUrl: 'https://via.placeholder.com/150',

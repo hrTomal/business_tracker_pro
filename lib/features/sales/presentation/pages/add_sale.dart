@@ -17,7 +17,7 @@ class _AddSaleState extends State<AddSale> {
   Widget build(BuildContext context) {
     var dimensions = AppDimensions(context);
     return Scaffold(
-      appBar: CustomAppBar(title: 'Add Sale'),
+      appBar: const CustomAppBar(title: 'Add Sale'),
       body: Padding(
         padding: dimensions.pagePaddingGlobal,
         child: Column(
@@ -26,24 +26,24 @@ class _AddSaleState extends State<AddSale> {
               children: [
                 Expanded(
                   child: DropdownSearch<int>(
-                    items: [1, 2, 3, 4, 5, 6, 7],
+                    items: const [1, 2, 3, 4, 5, 6, 7],
                   ),
                 ),
-                Padding(padding: EdgeInsets.all(4)),
+                const Padding(padding: EdgeInsets.all(4)),
                 Expanded(
                   child: DropdownSearch<int>.multiSelection(
-                    clearButtonProps: ClearButtonProps(isVisible: true),
-                    items: [1, 2, 3, 4, 5, 6, 7],
+                    clearButtonProps: const ClearButtonProps(isVisible: true),
+                    items: const [1, 2, 3, 4, 5, 6, 7],
                   ),
                 )
               ],
             ),
-            FixedSizedBox(),
+            const FixedSizedBox(),
             DropdownSearch<String>(
-              popupProps: PopupProps.menu(
+              popupProps: const PopupProps.menu(
                 showSearchBox: true,
               ),
-              items: [
+              items: const [
                 "Brazil",
                 "Italia",
                 "Tunisia",

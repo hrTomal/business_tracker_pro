@@ -35,7 +35,7 @@ class _DashboardState extends State<Dashboard> {
         },
         child: Stack(
           children: [
-            MainDashboardBody(),
+            const MainDashboardBody(),
             SlidingUpPanel(
               controller: _panelController,
               maxHeight: dimensions.screenHeight * 0.75,

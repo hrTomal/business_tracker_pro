@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 import '../../../common/presentation/widgets/buttons/custom_tile_button.dart';
 
 class SlidingUpPanelWidget extends StatelessWidget {
-  SlidingUpPanelWidget({super.key});
+  const SlidingUpPanelWidget({super.key});
 
   void _navigateToSettings(BuildContext context) {
     Navigator.pushNamed(context, SettingsPage.routeName);
@@ -110,13 +110,13 @@ class SlidingUpPanelWidget extends StatelessWidget {
       {'icon': Icons.attach_money, 'text': 'Pay/Get cash', 'onPressed': () {}},
     ];
 
-    var _crossAxisTileCount = 4;
+    var crossAxisTileCount = 4;
     if (dimensions.isMobile) {
-      _crossAxisTileCount = 4;
+      crossAxisTileCount = 4;
     } else if (dimensions.isTablet) {
-      _crossAxisTileCount = 6;
+      crossAxisTileCount = 6;
     } else {
-      _crossAxisTileCount = 8;
+      crossAxisTileCount = 8;
     }
     return Container(
       decoration: BoxDecoration(
@@ -135,7 +135,7 @@ class SlidingUpPanelWidget extends StatelessWidget {
           child: GridView.builder(
             itemCount: tiles.length,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: _crossAxisTileCount, // Number of tiles in a row
+              crossAxisCount: crossAxisTileCount, // Number of tiles in a row
               crossAxisSpacing: 2.0,
               mainAxisSpacing: 2.0,
               childAspectRatio: 1, // Adjust the height/width ratio of the tiles

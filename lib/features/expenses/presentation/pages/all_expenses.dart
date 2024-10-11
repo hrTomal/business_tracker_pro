@@ -13,8 +13,8 @@ class AllExpenses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var dimensions = AppDimensions(context);
-    var _itemCount = 0;
-    var _floatingActionButton = FloatingActionButton.extended(
+    var itemCount = 0;
+    var floatingActionButton = FloatingActionButton.extended(
       onPressed: () {
         Navigator.of(context).pushNamed(AddExpense.routeName);
       },
@@ -25,10 +25,10 @@ class AllExpenses extends StatelessWidget {
       appBar: const CustomAppBar(
         title: 'Expenses',
       ),
-      floatingActionButton: _itemCount != 0 ? _floatingActionButton : null,
+      floatingActionButton: itemCount != 0 ? floatingActionButton : null,
       body: Padding(
         padding: dimensions.pagePaddingGlobal,
-        child: _itemCount == 0
+        child: itemCount == 0
             ? Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -40,12 +40,12 @@ class AllExpenses extends StatelessWidget {
                       ),
                     ),
                     const FixedSizedBox(),
-                    _floatingActionButton,
+                    floatingActionButton,
                   ],
                 ),
               )
             : ListView.builder(
-                itemCount: _itemCount,
+                itemCount: itemCount,
                 itemBuilder: (context, index) {
                   return ExpenseListViewCard(
                     imageUrl: 'https://via.placeholder.com/150',

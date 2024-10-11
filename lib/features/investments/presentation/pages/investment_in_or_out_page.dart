@@ -55,7 +55,7 @@ class _InvestmentInOrOutPageState extends State<InvestmentInOrOutPage> {
                       'Date & Time',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    Divider(
+                    const Divider(
                       height: 1,
                     ),
                     Row(
@@ -94,7 +94,7 @@ class _InvestmentInOrOutPageState extends State<InvestmentInOrOutPage> {
                             }
                           },
                           label: const Text('Change'),
-                          icon: Icon(Icons.date_range_outlined),
+                          icon: const Icon(Icons.date_range_outlined),
                         )
                       ],
                     ),
@@ -129,7 +129,7 @@ class _InvestmentInOrOutPageState extends State<InvestmentInOrOutPage> {
               ),
               const FixedSizedBox(),
               CustomDropdownSearch(
-                items: [
+                items: const [
                   'Option 1',
                   'Option 2',
                   'Option 3',

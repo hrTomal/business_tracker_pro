@@ -87,7 +87,7 @@ class _MainDashboardBodyState extends State<MainDashboardBody> {
   Widget _buildPaymentOverviewCards(AppDimensions dimensions) {
     return GridView.builder(
       shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: dimensions.isMobile
             ? 1

@@ -7,21 +7,21 @@ import 'package:flutter/material.dart';
 
 class AddProduct extends StatefulWidget {
   static const String routeName = 'addProduct';
-  AddProduct({super.key});
+  const AddProduct({super.key});
 
   @override
   State<AddProduct> createState() => _AddProductState();
 }
 
 class _AddProductState extends State<AddProduct> {
-  TextEditingController _titleController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
   var _dropdownValue = 'Option 1';
 
   @override
   Widget build(BuildContext context) {
     var dimensions = AppDimensions(context);
     return Scaffold(
-      appBar: CustomAppBar(title: 'Add Product'),
+      appBar: const CustomAppBar(title: 'Add Product'),
       body: Padding(
         padding: dimensions.pagePaddingGlobal,
         child: Column(
@@ -70,7 +70,7 @@ class _AddProductState extends State<AddProduct> {
               ],
             ),
             GenericDropdownButton<String>(
-              items: ['Option 1', 'Option 2', 'Option 3'],
+              items: const ['Option 1', 'Option 2', 'Option 3'],
               value: _dropdownValue,
               onChanged: (value) {
                 setState(() {

@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 class AllWarehousesPage extends StatelessWidget {
   static const String routeName = 'allWarehousePage';
   AllWarehousesPage({super.key});
-  var _warehouseCount = 10;
+  final _warehouseCount = 10;
 
   @override
   Widget build(BuildContext context) {
-    var _customAddFloatingActionButton = CustomAddFloatingActionButton(
+    var customAddFloatingActionButton = CustomAddFloatingActionButton(
       onPressed: () {
         Navigator.of(context).pushNamed(AddWarehousePage.routeName);
       },
@@ -21,10 +21,10 @@ class AllWarehousesPage extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBar(title: 'Warehouses'),
       floatingActionButton:
-          _warehouseCount > 0 ? _customAddFloatingActionButton : null,
+          _warehouseCount > 0 ? customAddFloatingActionButton : null,
       body: _warehouseCount < 1
           ? Center(
-              child: _customAddFloatingActionButton,
+              child: customAddFloatingActionButton,
             )
           : ListView.builder(
               itemCount: _warehouseCount,

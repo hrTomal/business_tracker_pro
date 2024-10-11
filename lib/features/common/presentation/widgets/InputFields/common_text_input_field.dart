@@ -9,19 +9,19 @@ class CustomTextField extends StatelessWidget {
   final bool isNumberOnly;
 
   const CustomTextField({
-    Key? key,
+    super.key,
     required this.controller,
     this.width,
     this.height,
     this.hintText,
     this.labelText,
     this.isNumberOnly = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
+    return SizedBox(
       width: width,
       height: height,
       child: TextField(
@@ -29,7 +29,7 @@ class CustomTextField extends StatelessWidget {
         keyboardType: isNumberOnly ? TextInputType.number : TextInputType.text,
         decoration: InputDecoration(
           hintText: hintText,
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           labelText: labelText,
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: theme.colorScheme.primary),
