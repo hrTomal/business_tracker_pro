@@ -2,7 +2,9 @@ import 'package:business_tracker/config/theme/bloc/theme_bloc.dart';
 import 'package:business_tracker/config/theme/bloc/theme_state.dart';
 import 'package:business_tracker/core/storage/token_storage.dart';
 import 'package:business_tracker/core/utils/service_locator.dart';
+import 'package:business_tracker/features/auth/presentation/blocs/login/auth_bloc.dart';
 import 'package:business_tracker/features/auth/presentation/blocs/register/register_bloc.dart';
+import 'package:business_tracker/features/auth/presentation/pages/auth_page.dart';
 import 'package:business_tracker/features/auth/presentation/pages/register_page.dart';
 import 'package:business_tracker/features/company/presentation/pages/create_company.dart';
 import 'package:business_tracker/features/dashboard/presentation/pages/dashboard.dart';
@@ -24,6 +26,7 @@ void main() {
     providers: [
       BlocProvider(create: (context) => ThemeBloc()),
       BlocProvider(create: (context) => RegisterBloc()),
+      BlocProvider(create: (context) => AuthBloc()),
     ],
     child: MyApp(),
   )
@@ -73,13 +76,13 @@ class _MyAppState extends State<MyApp> {
         } else {
           String? accessToken = snapshot.data;
 
-          // if (accessToken != null) {
-          //   return const Dashboard(); // User is logged in
-          // } else {
-          //   return const CreateCompanyPage(); // User is not logged in
-          // }
+          if (accessToken != null) {
+            return const Dashboard(); // User is logged in
+          } else {
+            return const AuthenticationPage(); // User is not logged in
+          }
 
-          return const CreateCompanyPage();
+          // return const AuthenticationPage();
         }
       },
     );

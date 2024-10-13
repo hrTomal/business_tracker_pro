@@ -5,12 +5,15 @@ import 'package:business_tracker/config/theme/blue_theme.dart';
 import 'package:business_tracker/config/theme/dark_theme.dart';
 import 'package:business_tracker/config/theme/pink_theme.dart';
 import 'package:business_tracker/config/theme/purple_theme.dart';
+import 'package:business_tracker/features/auth/presentation/pages/auth_page.dart';
 import 'package:business_tracker/features/common/presentation/widgets/CustomAppBar/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../config/theme/light_theme.dart';
 import '../../../../config/theme/bloc/theme_state.dart';
+import '../../../auth/presentation/blocs/login/auth_bloc.dart';
+import '../../../auth/presentation/blocs/login/auth_event.dart';
 
 class SettingsPage extends StatefulWidget {
   static const String routeName = 'settings_page';
@@ -39,17 +42,18 @@ class _SettingsPageState extends State<SettingsPage> {
       body: Padding(
         padding: dimensions.pagePaddingGlobal,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _themeWidet(context),
-            const Divider(
-              height: 2,
-            )
+            const Divider(height: 20),
+            _logoutButton(context),
           ],
         ),
       ),
     );
   }
 
+  // Theme selection widget
   Row _themeWidet(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -88,6 +92,28 @@ class _SettingsPageState extends State<SettingsPage> {
           },
         ),
       ],
+    );
+  }
+
+  // Logout button
+  Widget _logoutButton(BuildContext context) {
+    return ElevatedButton.icon(
+      onPressed: () {
+        // Trigger the logout event
+        context.read<AuthBloc>().add(LogoutRequested());
+
+        // Optionally navigate to the login page or any other page after logout
+        Navigator.of(context).pushReplacementNamed(
+          AuthenticationPage.routeName,
+        );
+      },
+      icon: const Icon(Icons.logout),
+      label: const Text('Logout'),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Theme.of(context).colorScheme.error,
+        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+        textStyle: const TextStyle(fontSize: 18),
+      ),
     );
   }
 }
