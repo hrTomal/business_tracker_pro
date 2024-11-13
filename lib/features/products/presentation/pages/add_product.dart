@@ -2,6 +2,7 @@ import 'package:business_tracker/config/styles/app_dimensions.dart';
 import 'package:business_tracker/features/common/presentation/widgets/CustomAppBar/custom_app_bar.dart';
 import 'package:business_tracker/features/common/presentation/widgets/InputFields/common_text_input_field.dart';
 import 'package:business_tracker/features/common/presentation/widgets/InputFields/generic_dropdown.dart';
+import 'package:business_tracker/features/common/presentation/widgets/buttons/custom_save_floatingaction_button.dart';
 import 'package:business_tracker/features/common/presentation/widgets/misc/fixed_sized_box.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,14 @@ class AddProduct extends StatefulWidget {
 
 class _AddProductState extends State<AddProduct> {
   final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _stockTextController = TextEditingController();
+  final TextEditingController _retailPriceTextController =
+      TextEditingController();
+  final TextEditingController _wholesalePriceTextController =
+      TextEditingController();
+  final TextEditingController _skuTextController = TextEditingController();
+  final TextEditingController _additional_identifier_TextController =
+      TextEditingController();
   var _dropdownValue = 'Option 1';
 
   @override
@@ -22,6 +31,9 @@ class _AddProductState extends State<AddProduct> {
     var dimensions = AppDimensions(context);
     return Scaffold(
       appBar: const CustomAppBar(title: 'Add Product'),
+      floatingActionButton: CustomSaveFloatingActionButton(
+        onPressed: () => () {},
+      ),
       body: Padding(
         padding: dimensions.pagePaddingGlobal,
         child: Column(
@@ -32,43 +44,40 @@ class _AddProductState extends State<AddProduct> {
               labelText: 'Title',
             ),
             const FixedSizedBox(),
+            CustomTextField(
+              controller: _stockTextController,
+              labelText: 'Stock',
+              // width: dimensions.halfTextFieldWidth,
+              isNumberOnly: true,
+            ),
+            const FixedSizedBox(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 CustomTextField(
-                  controller: _titleController,
-                  labelText: 'Title',
+                  controller: _wholesalePriceTextController,
+                  labelText: 'Wholesale Price',
                   width: dimensions.halfTextFieldWidth,
                   isNumberOnly: true,
                 ),
                 CustomTextField(
-                  controller: _titleController,
-                  labelText: 'Title',
+                  controller: _retailPriceTextController,
+                  labelText: 'Retail Price',
                   width: dimensions.halfTextFieldWidth,
                 ),
               ],
             ),
             const FixedSizedBox(),
             CustomTextField(
-              controller: _titleController,
-              labelText: 'Title',
+              controller: _skuTextController,
+              labelText: 'SkU',
             ),
             const FixedSizedBox(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CustomTextField(
-                  controller: _titleController,
-                  labelText: 'Title',
-                  width: dimensions.halfTextFieldWidth,
-                ),
-                CustomTextField(
-                  controller: _titleController,
-                  labelText: 'Title',
-                  width: dimensions.halfTextFieldWidth,
-                ),
-              ],
+            CustomTextField(
+              controller: _additional_identifier_TextController,
+              labelText: 'Additional Identifier',
             ),
+            const FixedSizedBox(),
             GenericDropdownButton<String>(
               items: const ['Option 1', 'Option 2', 'Option 3'],
               value: _dropdownValue,

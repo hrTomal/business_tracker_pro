@@ -82,7 +82,7 @@ class _MyAppState extends State<MyApp> {
             return const AuthenticationPage(); // User is not logged in
           }
 
-          // return const AuthenticationPage();
+          // return const Dashboard();
         }
       },
     );

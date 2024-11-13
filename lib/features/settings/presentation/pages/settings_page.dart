@@ -7,6 +7,7 @@ import 'package:business_tracker/config/theme/pink_theme.dart';
 import 'package:business_tracker/config/theme/purple_theme.dart';
 import 'package:business_tracker/features/auth/presentation/pages/auth_page.dart';
 import 'package:business_tracker/features/common/presentation/widgets/CustomAppBar/custom_app_bar.dart';
+import 'package:business_tracker/features/company/presentation/pages/create_company.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,6 +47,9 @@ class _SettingsPageState extends State<SettingsPage> {
           children: [
             _themeWidet(context),
             const Divider(height: 20),
+            _navigateToCreateCompanyButton(
+                context), // New button for navigation
+            const Divider(height: 20),
             _logoutButton(context),
           ],
         ),
@@ -64,7 +68,6 @@ class _SettingsPageState extends State<SettingsPage> {
         ),
         BlocBuilder<ThemeBloc, ThemeState>(
           builder: (context, state) {
-            // Set the _selectedTheme based on the current theme state
             _selectedTheme = _themes.entries
                 .firstWhere((entry) => entry.value == state.theme)
                 .key;
@@ -95,14 +98,26 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
+  // Button to navigate to Create Company page
+  Widget _navigateToCreateCompanyButton(BuildContext context) {
+    return ElevatedButton.icon(
+      onPressed: () {
+        Navigator.of(context).pushNamed(CreateCompanyPage.routeName);
+      },
+      icon: const Icon(Icons.add_business),
+      label: const Text('Create Company'),
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+        textStyle: const TextStyle(fontSize: 18),
+      ),
+    );
+  }
+
   // Logout button
   Widget _logoutButton(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: () {
-        // Trigger the logout event
         context.read<AuthBloc>().add(LogoutRequested());
-
-        // Optionally navigate to the login page or any other page after logout
         Navigator.of(context).pushReplacementNamed(
           AuthenticationPage.routeName,
         );

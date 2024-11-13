@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:business_tracker/core/storage/token_storage.dart';
 import 'package:business_tracker/core/utils/constants.dart';
-import 'package:business_tracker/features/company/data/models/company.dart';
 import 'package:http/http.dart' as http;
 
 class CompanyRemoteDataSource {
