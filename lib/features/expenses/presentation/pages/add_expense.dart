@@ -19,7 +19,6 @@ class AddExpense extends StatefulWidget {
 }
 
 class _AddCategoriesState extends State<AddExpense> {
-  String? _expenseType;
   @override
   void initState() {
     super.initState();

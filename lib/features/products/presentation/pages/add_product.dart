@@ -1,92 +1,89 @@
-import 'package:business_tracker/config/styles/app_dimensions.dart';
 import 'package:business_tracker/features/common/presentation/widgets/CustomAppBar/custom_app_bar.dart';
 import 'package:business_tracker/features/common/presentation/widgets/InputFields/common_text_input_field.dart';
-import 'package:business_tracker/features/common/presentation/widgets/InputFields/generic_dropdown.dart';
 import 'package:business_tracker/features/common/presentation/widgets/buttons/custom_save_floatingaction_button.dart';
 import 'package:business_tracker/features/common/presentation/widgets/misc/fixed_sized_box.dart';
 import 'package:flutter/material.dart';
+import 'package:business_tracker/features/products/domain/repositories/ProductRepository.dart';
+import 'package:get_it/get_it.dart';
 
 class AddProduct extends StatefulWidget {
   static const String routeName = 'addProduct';
-  const AddProduct({super.key});
+  final ProductRepository productRepository = GetIt.I<ProductRepository>();
+
+  AddProduct({super.key});
 
   @override
   State<AddProduct> createState() => _AddProductState();
 }
 
 class _AddProductState extends State<AddProduct> {
-  final TextEditingController _titleController = TextEditingController();
-  final TextEditingController _stockTextController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _retailPriceTextController =
       TextEditingController();
   final TextEditingController _wholesalePriceTextController =
       TextEditingController();
-  final TextEditingController _skuTextController = TextEditingController();
-  final TextEditingController _additional_identifier_TextController =
+  final TextEditingController _additionalIdentifierTextController =
       TextEditingController();
-  var _dropdownValue = 'Option 1';
+
+  void _onSave() async {
+    final product = {
+      'name': _nameController.text,
+      'description': _descriptionController.text,
+      'retailPrice': _retailPriceTextController.text,
+      'wholesalePrice': _wholesalePriceTextController.text,
+      'additionalIdentifier': _additionalIdentifierTextController.text,
+    };
+
+    try {
+      await widget.productRepository.createProduct(product);
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Product created successfully')));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to create product')));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    var dimensions = AppDimensions(context);
     return Scaffold(
       appBar: const CustomAppBar(title: 'Add Product'),
       floatingActionButton: CustomSaveFloatingActionButton(
-        onPressed: () => () {},
+        onPressed: _onSave,
       ),
       body: Padding(
-        padding: dimensions.pagePaddingGlobal,
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomTextField(
-              controller: _titleController,
-              labelText: 'Title',
-            ),
+            CustomTextField(controller: _nameController, labelText: 'Name'),
             const FixedSizedBox(),
             CustomTextField(
-              controller: _stockTextController,
-              labelText: 'Stock',
-              // width: dimensions.halfTextFieldWidth,
-              isNumberOnly: true,
-            ),
+                controller: _descriptionController, labelText: 'Description'),
             const FixedSizedBox(),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                CustomTextField(
-                  controller: _wholesalePriceTextController,
-                  labelText: 'Wholesale Price',
-                  width: dimensions.halfTextFieldWidth,
-                  isNumberOnly: true,
+                Expanded(
+                  child: CustomTextField(
+                    controller: _wholesalePriceTextController,
+                    labelText: 'Wholesale Price',
+                    isNumberOnly: true,
+                  ),
                 ),
-                CustomTextField(
-                  controller: _retailPriceTextController,
-                  labelText: 'Retail Price',
-                  width: dimensions.halfTextFieldWidth,
+                const VerticalDivider(),
+                Expanded(
+                  child: CustomTextField(
+                    controller: _retailPriceTextController,
+                    labelText: 'Retail Price',
+                    isNumberOnly: true,
+                  ),
                 ),
               ],
             ),
             const FixedSizedBox(),
             CustomTextField(
-              controller: _skuTextController,
-              labelText: 'SkU',
-            ),
-            const FixedSizedBox(),
-            CustomTextField(
-              controller: _additional_identifier_TextController,
+              controller: _additionalIdentifierTextController,
               labelText: 'Additional Identifier',
-            ),
-            const FixedSizedBox(),
-            GenericDropdownButton<String>(
-              items: const ['Option 1', 'Option 2', 'Option 3'],
-              value: _dropdownValue,
-              onChanged: (value) {
-                setState(() {
-                  _dropdownValue = value!;
-                });
-              },
-              hint: 'Select an option',
             ),
           ],
         ),

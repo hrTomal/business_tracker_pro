@@ -1,36 +1,38 @@
-import 'dart:convert';
-
-import 'package:business_tracker/core/storage/token_storage.dart';
-import 'package:business_tracker/core/utils/constants.dart';
-import 'package:http/http.dart' as http;
+import 'package:business_tracker/core/utils/api_client.dart';
 
 class CompanyRemoteDataSource {
-  final TokenStorage _tokenStorage = TokenStorage();
+  final ApiClient _apiClient = ApiClient();
+
+  Future<Map<String, dynamic>> getCompany(int page) async {
+    try {
+      final response = await _apiClient.request(
+        'GET',
+        '/company/companies',
+      );
+      // print('Company details fetched: $response');
+      return response; // Return the parsed response
+    } catch (e) {
+      // print('Error fetching company details: $e');
+      throw Exception('Failed to fetch company details');
+    }
+  }
 
   Future<void> createCompany(
       String companyName, String addressLine1, String addressLine2) async {
-    final url = Uri.parse('${AppConstants.baseUrl}/company/companies/');
-    final token = await _tokenStorage.getAccessToken();
-    final response = await http.post(
-      url,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-      body: json.encode({
-        'name': companyName,
-        'address_line_1': addressLine1,
-        'address_line_2': addressLine2,
-      }),
-    );
-
-    if (response.statusCode == 201) {
-      // final responseData = json.decode(response.body);
-      // final responseObj = Company.fromJson(responseData);
-      print('Company Created');
-    } else {
-      // Handle error response
-      throw Exception('Failed to register user');
+    try {
+      await _apiClient.request(
+        'POST',
+        '/company/companies/',
+        body: {
+          'name': companyName,
+          'address_line_1': addressLine1,
+          'address_line_2': addressLine2,
+        },
+      );
+      // print('Company Created');
+    } catch (e) {
+      // print('Error creating company: $e');
+      throw Exception('Failed to create company');
     }
   }
 }

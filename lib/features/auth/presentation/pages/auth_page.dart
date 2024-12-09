@@ -24,9 +24,6 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
 
   @override
   Widget build(BuildContext context) {
-    var pageHeight = MediaQuery.of(context).size.height;
-    var pageWidth = MediaQuery.of(context).size.width;
-
     return SafeArea(
       child: Scaffold(
         body: BlocListener<AuthBloc, AuthState>(
