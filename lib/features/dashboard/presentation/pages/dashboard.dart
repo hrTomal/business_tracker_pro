@@ -75,7 +75,7 @@ class _DashboardState extends State<Dashboard> {
                   ],
                 ),
               ),
-              panel: SlidingUpPanelWidget(),
+              panel: const SlidingUpPanelWidget(),
               body: const SizedBox.shrink(),
             ),
           ],

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class AllWarehousesPage extends StatelessWidget {
   static const String routeName = 'allWarehousePage';
-  AllWarehousesPage({super.key});
+  const AllWarehousesPage({super.key});
   final _warehouseCount = 10;
 
   @override

@@ -63,26 +63,26 @@ class Company {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['is_active'] = this.isActive;
-    data['name'] = this.name;
-    data['address_line_1'] = this.addressLine1;
-    data['address_line_2'] = this.addressLine2;
-    data['company_cost'] = this.companyCost;
-    data['per_owner_cost'] = this.perOwnerCost;
-    data['per_user_cost'] = this.perUserCost;
-    data['fixed_cost'] = this.fixedCost;
-    data['use_fixed_cost'] = this.useFixedCost;
-    data['use_custom_company_cost'] = this.useCustomCompanyCost;
-    data['use_custom_user_cost'] = this.useCustomUserCost;
-    data['use_custom_owner_cost'] = this.useCustomOwnerCost;
-    data['division'] = this.division;
-    data['district'] = this.district;
-    data['latest_active_billing'] = this.latestActiveBilling;
-    data['latest_generated_billing'] = this.latestGeneratedBilling;
-    data['staffs'] = this.staffs;
-    data['owners'] = this.owners;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['is_active'] = isActive;
+    data['name'] = name;
+    data['address_line_1'] = addressLine1;
+    data['address_line_2'] = addressLine2;
+    data['company_cost'] = companyCost;
+    data['per_owner_cost'] = perOwnerCost;
+    data['per_user_cost'] = perUserCost;
+    data['fixed_cost'] = fixedCost;
+    data['use_fixed_cost'] = useFixedCost;
+    data['use_custom_company_cost'] = useCustomCompanyCost;
+    data['use_custom_user_cost'] = useCustomUserCost;
+    data['use_custom_owner_cost'] = useCustomOwnerCost;
+    data['division'] = division;
+    data['district'] = district;
+    data['latest_active_billing'] = latestActiveBilling;
+    data['latest_generated_billing'] = latestGeneratedBilling;
+    data['staffs'] = staffs;
+    data['owners'] = owners;
     return data;
   }
 }

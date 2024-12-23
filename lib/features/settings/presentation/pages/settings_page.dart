@@ -117,7 +117,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget _logoutButton(BuildContext context) {
     return ElevatedButton.icon(
       onPressed: () {
-        context.read<AuthBloc>().add(LogoutRequested());
+        context.read<AuthBloc>().add(const LogoutRequested());
         Navigator.of(context).pushReplacementNamed(
           AuthenticationPage.routeName,
         );

@@ -11,7 +11,7 @@ class GenericInputField extends StatelessWidget {
   final Function(String)? onChanged;
 
   const GenericInputField({
-    Key? key,
+    super.key,
     required this.controller,
     required this.labelText,
     this.obscureText = false,
@@ -20,7 +20,7 @@ class GenericInputField extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

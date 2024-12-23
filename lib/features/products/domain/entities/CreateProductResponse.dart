@@ -51,22 +51,22 @@ class CreateProductResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['attributes'] = this.attributes;
-    data['is_active'] = this.isActive;
-    data['name'] = this.name;
-    data['cost'] = this.cost;
-    data['retail_price'] = this.retailPrice;
-    data['wholesale_price'] = this.wholesalePrice;
-    data['sku'] = this.sku;
-    data['additional_identifier'] = this.additionalIdentifier;
-    data['is_serialized_product'] = this.isSerializedProduct;
-    data['description'] = this.description;
-    data['company'] = this.company;
-    data['parent'] = this.parent;
-    data['brand'] = this.brand;
-    data['subcategory'] = this.subcategory;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['attributes'] = attributes;
+    data['is_active'] = isActive;
+    data['name'] = name;
+    data['cost'] = cost;
+    data['retail_price'] = retailPrice;
+    data['wholesale_price'] = wholesalePrice;
+    data['sku'] = sku;
+    data['additional_identifier'] = additionalIdentifier;
+    data['is_serialized_product'] = isSerializedProduct;
+    data['description'] = description;
+    data['company'] = company;
+    data['parent'] = parent;
+    data['brand'] = brand;
+    data['subcategory'] = subcategory;
     return data;
   }
 }

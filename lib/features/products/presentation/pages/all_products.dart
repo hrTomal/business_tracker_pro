@@ -26,7 +26,7 @@ class _AllProductsState extends State<AllProducts> {
   void _showModalBottomSheet(BuildContext context) {
     showCupertinoModalBottomSheet(
       context: context,
-      builder: (context) => FilterBottomSheet(),
+      builder: (context) => const FilterBottomSheet(),
     );
   }
 

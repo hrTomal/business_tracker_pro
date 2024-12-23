@@ -31,7 +31,7 @@ void main() {
       BlocProvider(create: (context) => AuthBloc()),
       BlocProvider(create: (context) => GetCompanyBloc())
     ],
-    child: MyApp(),
+    child: const MyApp(),
   )
       // BlocProvider(
       //   create: (context) => ThemeBloc(),
@@ -83,7 +83,7 @@ class _MyAppState extends State<MyApp> {
             // User is logged in, fetch companies
             return BlocProvider(
               create: (context) =>
-                  GetCompanyBloc()..add(GetCompanyListRequested(page: 1)),
+                  GetCompanyBloc()..add(const GetCompanyListRequested(page: 1)),
               child: BlocBuilder<GetCompanyBloc, GetCompanyState>(
                 builder: (context, state) {
                   if (state is GetCompanyLoading) {
