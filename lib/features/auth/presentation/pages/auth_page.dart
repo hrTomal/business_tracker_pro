@@ -1,8 +1,8 @@
+import 'package:business_tracker/core/utils/navigate_on_auth_success_helper.dart';
 import 'package:business_tracker/features/auth/presentation/blocs/login/auth_bloc.dart';
 import 'package:business_tracker/features/auth/presentation/blocs/login/auth_event.dart';
-import 'package:business_tracker/features/auth/presentation/blocs/login/auth_state.dart'; // Import the state
+import 'package:business_tracker/features/auth/presentation/blocs/login/auth_state.dart';
 import 'package:business_tracker/features/auth/presentation/pages/register_page.dart';
-import 'package:business_tracker/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,12 +28,14 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
         body: BlocListener<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthSuccess) {
-              Navigator.of(context).pushReplacementNamed(
-                Dashboard.routeName,
-              );
+              // Navigator.of(context).pushReplacementNamed(
+              //   Dashboard.routeName,
+              // );
+              navigateOnAuthSuccess(context, state.accessToken);
             } else if (state is AuthFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.error)),
+                // SnackBar(content: Text('Error Login.')),
               );
             }
           },

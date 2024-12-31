@@ -45,11 +45,19 @@ class SlidingUpPanelWidget extends StatelessWidget {
           Navigator.of(context).pushNamed(AllWarehousesPage.routeName);
         }
       },
+      // {
+      //   'icon': Icons.man_2,
+      //   'text': 'Investors',
+      //   'onPressed': () {
+      //     // Navigator.of(context).pushNamed(AllCategories.routeName);
+      //   }
+      // },
+
       {
-        'icon': Icons.man_2,
-        'text': 'Investors',
+        'icon': Icons.category,
+        'text': 'Categories',
         'onPressed': () {
-          // Navigator.of(context).pushNamed(AllCategories.routeName);
+          Navigator.of(context).pushNamed(AllCategories.routeName);
         }
       },
       {
@@ -57,13 +65,6 @@ class SlidingUpPanelWidget extends StatelessWidget {
         'text': 'Expenses',
         'onPressed': () {
           Navigator.of(context).pushNamed(AllExpenses.routeName);
-        }
-      },
-      {
-        'icon': Icons.precision_manufacturing,
-        'text': 'Product Categories',
-        'onPressed': () {
-          Navigator.of(context).pushNamed(AllCategories.routeName);
         }
       },
       {

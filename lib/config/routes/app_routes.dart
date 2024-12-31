@@ -98,7 +98,7 @@ class AppRoutes {
         );
       case allWarehousesPage:
         return MaterialPageRoute(
-          builder: (_) => AllWarehousesPage(),
+          builder: (_) => const AllWarehousesPage(),
         );
       case addWarehousePage:
         return MaterialPageRoute(

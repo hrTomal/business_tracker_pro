@@ -36,7 +36,7 @@ class AuthenticationRemoteDataSource {
     }
   }
 
-  Future<void> loginUser(String userIdentifier, String password) async {
+  Future<String> loginUser(String userIdentifier, String password) async {
     final url = Uri.parse('${AppConstants.baseUrl}/user/auth/token/jwt/');
 
     final response = await http.post(
@@ -57,6 +57,7 @@ class AuthenticationRemoteDataSource {
         responseObj.access ?? '',
         responseObj.refresh ?? '',
       );
+      return responseObj.access ?? '';
     } else {
       // Handle error response
       throw Exception('Failed to Login');

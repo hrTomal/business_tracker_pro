@@ -16,8 +16,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<void> loginUser(String userIdentifier, String password) async {
-    await remoteDataSource.loginUser(userIdentifier, password);
+  Future<String> loginUser(String userIdentifier, String password) async {
+    return await remoteDataSource.loginUser(userIdentifier, password);
   }
 
   @override

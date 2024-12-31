@@ -8,6 +8,7 @@ class GetCompanyBloc extends Bloc<GetCompanyEvent, GetCompanyState> {
   final CompanyRepository repository = GetIt.I<CompanyRepository>();
 
   GetCompanyBloc() : super(GetCompanyInitial()) {
+    // Event to fetch the company list
     on<GetCompanyListRequested>((event, emit) async {
       emit(GetCompanyLoading());
 
@@ -21,6 +22,18 @@ class GetCompanyBloc extends Bloc<GetCompanyEvent, GetCompanyState> {
         ));
       } catch (e) {
         emit(GetCompanyFailure(error: e.toString()));
+      }
+    });
+
+    // Event to select a company
+    on<SelectedCompanyEvent>((event, emit) {
+      final currentState = state;
+
+      if (currentState is GetCompanyListSuccess) {
+        // Only emit if the selectedCompanyId has actually changed
+        if (currentState.selectedCompanyId != event.companyId) {
+          emit(currentState.copyWith(selectedCompanyId: event.companyId));
+        }
       }
     });
   }

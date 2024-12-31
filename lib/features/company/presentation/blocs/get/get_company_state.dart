@@ -17,16 +17,40 @@ class GetCompanyListSuccess extends GetCompanyState {
   final int count;
   final String? next;
   final String? previous;
+  final int? selectedCompanyId;
 
   const GetCompanyListSuccess({
     required this.companies,
     required this.count,
     this.next,
     this.previous,
+    this.selectedCompanyId,
   });
 
+  GetCompanyListSuccess copyWith({
+    List<Company>? companies,
+    int? count,
+    String? next,
+    String? previous,
+    int? selectedCompanyId,
+  }) {
+    return GetCompanyListSuccess(
+      companies: companies ?? this.companies,
+      count: count ?? this.count,
+      next: next ?? this.next,
+      previous: previous ?? this.previous,
+      selectedCompanyId: selectedCompanyId ?? this.selectedCompanyId,
+    );
+  }
+
   @override
-  List<Object?> get props => [companies, count, next ?? '', previous ?? ''];
+  List<Object?> get props => [
+        companies ?? [],
+        count,
+        next ?? '',
+        previous ?? '',
+        selectedCompanyId ?? 0,
+      ];
 }
 
 class GetCompanyFailure extends GetCompanyState {

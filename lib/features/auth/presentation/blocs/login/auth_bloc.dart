@@ -13,9 +13,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthLoading());
 
       try {
-        await repository.loginUser(event.userIdentifier, event.password);
+        var accessToken =
+            await repository.loginUser(event.userIdentifier, event.password);
 
-        emit(AuthSuccess());
+        emit(AuthSuccess(accessToken: accessToken));
       } catch (e) {
         emit(AuthFailure(error: e.toString()));
       }

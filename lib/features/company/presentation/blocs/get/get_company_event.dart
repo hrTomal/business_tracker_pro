@@ -15,3 +15,9 @@ class GetCompanyListRequested extends GetCompanyEvent {
   @override
   List<Object?> get props => [page];
 }
+
+class SelectedCompanyEvent extends GetCompanyEvent {
+  final int companyId;
+
+  const SelectedCompanyEvent(this.companyId);
+}

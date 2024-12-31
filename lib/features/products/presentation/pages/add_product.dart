@@ -5,6 +5,9 @@ import 'package:business_tracker/features/common/presentation/widgets/misc/fixed
 import 'package:flutter/material.dart';
 import 'package:business_tracker/features/products/domain/repositories/ProductRepository.dart';
 import 'package:get_it/get_it.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:business_tracker/features/company/presentation/blocs/get/get_company_bloc.dart';
+import 'package:business_tracker/features/company/presentation/blocs/get/get_company_state.dart';
 
 class AddProduct extends StatefulWidget {
   static const String routeName = 'addProduct';
@@ -52,41 +55,55 @@ class _AddProductState extends State<AddProduct> {
       floatingActionButton: CustomSaveFloatingActionButton(
         onPressed: _onSave,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            CustomTextField(controller: _nameController, labelText: 'Name'),
-            const FixedSizedBox(),
-            CustomTextField(
-                controller: _descriptionController, labelText: 'Description'),
-            const FixedSizedBox(),
-            Row(
+      body: BlocBuilder<GetCompanyBloc, GetCompanyState>(
+        builder: (context, state) {
+          int companyId = 0;
+
+          if (state is GetCompanyListSuccess) {
+            companyId = state.selectedCompanyId ?? 555;
+          }
+
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: CustomTextField(
-                    controller: _wholesalePriceTextController,
-                    labelText: 'Wholesale Price',
-                    isNumberOnly: true,
-                  ),
+                Text('Company ID: $companyId'),
+                const FixedSizedBox(),
+                CustomTextField(controller: _nameController, labelText: 'Name'),
+                const FixedSizedBox(),
+                CustomTextField(
+                    controller: _descriptionController,
+                    labelText: 'Description'),
+                const FixedSizedBox(),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomTextField(
+                        controller: _wholesalePriceTextController,
+                        labelText: 'Wholesale Price',
+                        isNumberOnly: true,
+                      ),
+                    ),
+                    const VerticalDivider(),
+                    Expanded(
+                      child: CustomTextField(
+                        controller: _retailPriceTextController,
+                        labelText: 'Retail Price',
+                        isNumberOnly: true,
+                      ),
+                    ),
+                  ],
                 ),
-                const VerticalDivider(),
-                Expanded(
-                  child: CustomTextField(
-                    controller: _retailPriceTextController,
-                    labelText: 'Retail Price',
-                    isNumberOnly: true,
-                  ),
+                const FixedSizedBox(),
+                CustomTextField(
+                  controller: _additionalIdentifierTextController,
+                  labelText: 'Additional Identifier',
                 ),
               ],
             ),
-            const FixedSizedBox(),
-            CustomTextField(
-              controller: _additionalIdentifierTextController,
-              labelText: 'Additional Identifier',
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
