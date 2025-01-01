@@ -24,7 +24,7 @@ class _AllCompaniesPageState extends State<AllCompaniesPage> {
     return SafeArea(
       child: Scaffold(
         appBar: const CustomAppBar(
-          title: 'Your Companies',
+          title: 'Companies',
         ),
         body: Padding(
           padding: dimensions.pagePaddingGlobal,
@@ -58,7 +58,7 @@ class _AllCompaniesPageState extends State<AllCompaniesPage> {
                               .read<GetCompanyBloc>()
                               .add(SelectedCompanyEvent(company.id!));
                           // Navigate to a company details page
-                          Navigator.pushNamed(context, Dashboard.routeName);
+                          Navigator.of(context).pushNamed(Dashboard.routeName);
                         },
                       ),
                     );

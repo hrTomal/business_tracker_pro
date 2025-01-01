@@ -12,6 +12,7 @@ class ApiClient {
     Map<String, String>? headers,
     Map<String, dynamic>? queryParams,
     dynamic body,
+    bool isFormData = false,
   }) async {
     final url = Uri.parse('${AppConstants.baseUrl}$endpoint')
         .replace(queryParameters: queryParams);
@@ -19,15 +20,36 @@ class ApiClient {
 
     headers ??= {};
     headers.addAll({
-      'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
     });
+
+    if (!isFormData) {
+      headers['Content-Type'] = 'application/json';
+    }
+
+    if (isFormData && body is Map<String, dynamic>) {
+      final request = http.MultipartRequest(method.toUpperCase(), url);
+      request.headers.addAll(headers);
+
+      body.forEach((key, value) {
+        if (value is String || value is int) {
+          request.fields[key] = value.toString();
+        } else if (value is http.MultipartFile) {
+          request.files.add(value);
+        }
+      });
+
+      final streamedResponse = await request.send();
+      return await http.Response.fromStream(streamedResponse);
+    }
 
     switch (method.toUpperCase()) {
       case 'GET':
         return await http.get(url, headers: headers);
       case 'POST':
-        return await http.post(url, headers: headers, body: json.encode(body));
+        return isFormData
+            ? throw Exception('Use form-data flag for Multipart requests')
+            : await http.post(url, headers: headers, body: json.encode(body));
       case 'PUT':
         return await http.put(url, headers: headers, body: json.encode(body));
       case 'PATCH':
@@ -45,6 +67,7 @@ class ApiClient {
     Map<String, String>? headers,
     Map<String, dynamic>? queryParams,
     dynamic body,
+    bool isFormData = false,
   }) async {
     final response = await _sendRequest(
       method,
@@ -52,6 +75,7 @@ class ApiClient {
       headers: headers,
       queryParams: queryParams,
       body: body,
+      isFormData: isFormData,
     );
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
@@ -62,5 +86,14 @@ class ApiClient {
           : 'Failed to process request';
       throw Exception('Error ${response.statusCode}: $errorMessage');
     }
+  }
+
+  Future<http.MultipartFile> createMultipartFile(
+    String fieldName,
+    String filePath,
+    String fileName,
+  ) async {
+    return await http.MultipartFile.fromPath(fieldName, filePath,
+        filename: fileName);
   }
 }

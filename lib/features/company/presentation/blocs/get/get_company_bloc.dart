@@ -26,15 +26,17 @@ class GetCompanyBloc extends Bloc<GetCompanyEvent, GetCompanyState> {
     });
 
     // Event to select a company
-    on<SelectedCompanyEvent>((event, emit) {
-      final currentState = state;
+    on<SelectedCompanyEvent>(
+      (event, emit) {
+        final currentState = state;
 
-      if (currentState is GetCompanyListSuccess) {
-        // Only emit if the selectedCompanyId has actually changed
-        if (currentState.selectedCompanyId != event.companyId) {
+        if (currentState is GetCompanyListSuccess) {
+          // Only emit if the selectedCompanyId has actually changed
+          // if (currentState.selectedCompanyId != event.companyId) {
           emit(currentState.copyWith(selectedCompanyId: event.companyId));
+          // }
         }
-      }
-    });
+      },
+    );
   }
 }

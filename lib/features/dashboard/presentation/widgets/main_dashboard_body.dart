@@ -1,9 +1,6 @@
 import 'package:business_tracker/config/styles/app_dimensions.dart';
-import 'package:business_tracker/features/company/presentation/blocs/get/get_company_bloc.dart';
-import 'package:business_tracker/features/company/presentation/blocs/get/get_company_state.dart';
 import 'package:business_tracker/features/dashboard/presentation/widgets/main_body/payment_overview_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class MainDashboardBody extends StatefulWidget {
@@ -20,82 +17,70 @@ class _MainDashboardBodyState extends State<MainDashboardBody> {
   Widget build(BuildContext context) {
     final dimesions = AppDimensions(context);
     return SingleChildScrollView(
-      child: BlocBuilder<GetCompanyBloc, GetCompanyState>(
-        builder: (context, state) {
-          int companyId = 0;
-          if (state is GetCompanyListSuccess) {
-            companyId = state.selectedCompanyId ?? 999;
-          }
-          return Column(
-            children: [
-              // Text(
-              //   companyId.toString(),
-              // ),
-              Card(
-                child: Padding(
-                  padding: dimesions.pagePaddingGlobal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: SvgPicture.asset(
-                          'assets/icons/whatspp_icon/whatsapp-16.svg',
-                          height: dimesions.screenWidth * .07,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.message,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                      // IconButton(
-                      //   onPressed: () {},
-                      //   icon: SvgPicture.asset(
-                      //     'assets/icons/youtube.svg',
-                      //     height: dimesions.screenWidth * .08,
-                      //   ),
-                      // ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.notifications,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.play_circle,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.help,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.refresh_outlined,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                    ],
+        child: Column(
+      children: [
+        Card(
+          child: Padding(
+            padding: dimesions.pagePaddingGlobal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  onPressed: () {},
+                  icon: SvgPicture.asset(
+                    'assets/icons/whatspp_icon/whatsapp-16.svg',
+                    height: dimesions.screenWidth * .07,
                   ),
                 ),
-              ),
-              _buildPaymentOverviewCards(dimesions),
-            ],
-          );
-        },
-      ),
-    );
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.message,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                // IconButton(
+                //   onPressed: () {},
+                //   icon: SvgPicture.asset(
+                //     'assets/icons/youtube.svg',
+                //     height: dimesions.screenWidth * .08,
+                //   ),
+                // ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.notifications,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.play_circle,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.help,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.refresh_outlined,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        _buildPaymentOverviewCards(dimesions),
+      ],
+    ));
   }
 
   Widget _buildPaymentOverviewCards(AppDimensions dimensions) {
