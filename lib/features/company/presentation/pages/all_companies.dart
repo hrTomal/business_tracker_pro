@@ -1,11 +1,12 @@
 import 'package:business_tracker/config/styles/app_dimensions.dart';
 import 'package:business_tracker/features/common/presentation/widgets/CustomAppBar/custom_app_bar.dart';
 import 'package:business_tracker/features/company/presentation/blocs/get/get_company_bloc.dart';
-import 'package:business_tracker/features/company/presentation/blocs/get/get_company_event.dart';
+// import 'package:business_tracker/features/company/presentation/blocs/get/get_company_event.dart';
 import 'package:business_tracker/features/company/presentation/blocs/get/get_company_state.dart';
 import 'package:business_tracker/features/dashboard/presentation/pages/dashboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AllCompaniesPage extends StatefulWidget {
   static const String routeName = 'all_companies_page';
@@ -53,10 +54,14 @@ class _AllCompaniesPageState extends State<AllCompaniesPage> {
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         trailing: const Icon(Icons.arrow_forward_ios),
-                        onTap: () {
-                          context
-                              .read<GetCompanyBloc>()
-                              .add(SelectedCompanyEvent(company.id!));
+                        onTap: () async {
+                          final SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          await prefs.setString(
+                              'selectedCompanyId', company.id.toString());
+                          // context
+                          //     .read<GetCompanyBloc>()
+                          //     .add(SelectedCompanyEvent(company.id!));
                           // Navigate to a company details page
                           Navigator.of(context).pushNamed(Dashboard.routeName);
                         },

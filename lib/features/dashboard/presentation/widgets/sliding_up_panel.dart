@@ -1,4 +1,5 @@
 import 'package:business_tracker/config/styles/app_dimensions.dart';
+import 'package:business_tracker/features/brands/presentation/pages/all_brands.dart';
 import 'package:business_tracker/features/categories/presentation/pages/all_categories.dart';
 import 'package:business_tracker/features/expenses/presentation/pages/all_expenses.dart';
 import 'package:business_tracker/features/investments/presentation/pages/investment_in_or_out_page.dart';
@@ -31,20 +32,20 @@ class SlidingUpPanelWidget extends StatelessWidget {
           Navigator.of(context).pushNamed(AllProducts.routeName);
         }
       },
-      {
-        'icon': Icons.inventory,
-        'text': 'Vendors',
-        'onPressed': () {
-          Navigator.of(context).pushNamed(AllVendorsPage.routeName);
-        }
-      },
-      {
-        'icon': Icons.house,
-        'text': 'Warehouses',
-        'onPressed': () {
-          Navigator.of(context).pushNamed(AllWarehousesPage.routeName);
-        }
-      },
+      // {
+      //   'icon': Icons.inventory,
+      //   'text': 'Vendors',
+      //   'onPressed': () {
+      //     Navigator.of(context).pushNamed(AllVendorsPage.routeName);
+      //   }
+      // },
+      // {
+      //   'icon': Icons.house,
+      //   'text': 'Warehouses',
+      //   'onPressed': () {
+      //     Navigator.of(context).pushNamed(AllWarehousesPage.routeName);
+      //   }
+      // },
       // {
       //   'icon': Icons.man_2,
       //   'text': 'Investors',
@@ -52,44 +53,36 @@ class SlidingUpPanelWidget extends StatelessWidget {
       //     // Navigator.of(context).pushNamed(AllCategories.routeName);
       //   }
       // },
-
+      // {
+      //   'icon': Icons.cabin,
+      //   'text': 'Expenses',
+      //   'onPressed': () {
+      //     Navigator.of(context).pushNamed(AllExpenses.routeName);
+      //   }
+      // },
+      // {
+      //   'icon': Icons.outbond,
+      //   'text': 'Investment In/Out',
+      //   'onPressed': () {
+      //     Navigator.of(context).pushNamed(InvestmentInOrOutPage.routeName);
+      //   }
+      // },
+      // {
+      //   'icon': Icons.add_box_rounded,
+      //   'text': 'Add Product',
+      //   'onPressed': () {
+      //     Navigator.of(context).pushNamed(AddProduct.routeName);
+      //   }
+      // },
       {
-        'icon': Icons.category,
-        'text': 'Categories',
-        'onPressed': () {
-          Navigator.of(context).pushNamed(AllCategories.routeName);
-        }
-      },
-      {
-        'icon': Icons.cabin,
-        'text': 'Expenses',
-        'onPressed': () {
-          Navigator.of(context).pushNamed(AllExpenses.routeName);
-        }
-      },
-      {
-        'icon': Icons.outbond,
-        'text': 'Investment In/Out',
-        'onPressed': () {
-          Navigator.of(context).pushNamed(InvestmentInOrOutPage.routeName);
-        }
-      },
-      {
-        'icon': Icons.add_box_rounded,
-        'text': 'Add Product',
-        'onPressed': () {
-          Navigator.of(context).pushNamed(AddProduct.routeName);
-        }
-      },
-      {
-        'icon': Icons.precision_manufacturing,
+        'icon': Icons.monetization_on_outlined,
         'text': 'Add Sale',
         'onPressed': () {
           Navigator.of(context).pushNamed(AddSale.routeName);
         }
       },
       {
-        'icon': Icons.explore,
+        'icon': Icons.money,
         'text': 'Add Purchase',
         'onPressed': () {
           Navigator.of(context).pushNamed(AddProduct.routeName);
@@ -102,13 +95,35 @@ class SlidingUpPanelWidget extends StatelessWidget {
           Navigator.of(context).pushNamed(SettingsPage.routeName);
         }
       },
-      {'icon': Icons.shopping_bag, 'text': 'Sales', 'onPressed': () {}},
-      {'icon': Icons.money_rounded, 'text': 'Transactions', 'onPressed': () {}},
-      {'icon': Icons.add_box, 'text': 'Purchase', 'onPressed': () {}},
-      {'icon': Icons.playlist_add, 'text': 'P.Order', 'onPressed': () {}},
-      {'icon': Icons.undo, 'text': 'Customer return', 'onPressed': () {}},
-      {'icon': Icons.replay, 'text': 'Return purchase', 'onPressed': () {}},
-      {'icon': Icons.attach_money, 'text': 'Pay/Get cash', 'onPressed': () {}},
+      {
+        'icon': Icons.category,
+        'text': 'Categories',
+        'onPressed': () {
+          Navigator.of(context).pushNamed(AllCategories.routeName);
+        }
+      },
+      {
+        'icon': Icons.branding_watermark,
+        'text': 'Brands',
+        'onPressed': () {
+          Navigator.of(context).pushNamed(AllBrandsPage.routeName);
+        }
+      },
+      {
+        'icon': Icons.edit_attributes_outlined,
+        'text': 'Attributes',
+        'onPressed': () {
+          Navigator.of(context).pushNamed(AllCategories.routeName);
+        }
+      },
+
+      // {'icon': Icons.shopping_bag, 'text': 'Sales', 'onPressed': () {}},
+      // {'icon': Icons.money_rounded, 'text': 'Transactions', 'onPressed': () {}},
+      // {'icon': Icons.add_box, 'text': 'Purchase', 'onPressed': () {}},
+      // {'icon': Icons.playlist_add, 'text': 'P.Order', 'onPressed': () {}},
+      // {'icon': Icons.undo, 'text': 'Customer return', 'onPressed': () {}},
+      // {'icon': Icons.replay, 'text': 'Return purchase', 'onPressed': () {}},
+      // {'icon': Icons.attach_money, 'text': 'Pay/Get cash', 'onPressed': () {}},
     ];
 
     var crossAxisTileCount = 4;

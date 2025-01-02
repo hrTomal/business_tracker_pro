@@ -1,5 +1,7 @@
 import 'package:business_tracker/features/auth/presentation/pages/auth_page.dart';
 import 'package:business_tracker/features/auth/presentation/pages/register_page.dart';
+import 'package:business_tracker/features/brands/presentation/pages/add_brands.dart';
+import 'package:business_tracker/features/brands/presentation/pages/all_brands.dart';
 import 'package:business_tracker/features/categories/presentation/pages/add_categories.dart';
 import 'package:business_tracker/features/categories/presentation/pages/all_categories.dart';
 import 'package:business_tracker/features/company/presentation/pages/create_company.dart';
@@ -37,6 +39,8 @@ class AppRoutes {
   static const String addWarehousePage = AddWarehousePage.routeName;
   static const String regiserPage = RegisterPage.routeName;
   static const String createCompanyPage = CreateCompanyPage.routeName;
+  static const String allBrandsPage = AllBrandsPage.routeName;
+  static const String addBrandsPage = AddBrandsPage.routeName;
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -111,6 +115,14 @@ class AppRoutes {
       case createCompanyPage:
         return MaterialPageRoute(
           builder: (_) => const CreateCompanyPage(),
+        );
+      case allBrandsPage:
+        return MaterialPageRoute(
+          builder: (_) => const AllBrandsPage(),
+        );
+      case addBrandsPage:
+        return MaterialPageRoute(
+          builder: (_) => const AddBrandsPage(),
         );
       default:
         return MaterialPageRoute(

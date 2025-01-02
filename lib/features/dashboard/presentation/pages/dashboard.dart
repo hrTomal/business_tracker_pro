@@ -35,7 +35,7 @@ class _DashboardState extends State<Dashboard> {
           padding: dimensions.pagePaddingGlobal,
           child: BlocBuilder<GetCompanyBloc, GetCompanyState>(
               builder: (context, state) {
-            int companyId = 0;
+            // int companyId = 0;
 
             if (state is GetCompanyLoading) {
               return const Center(
@@ -56,7 +56,7 @@ class _DashboardState extends State<Dashboard> {
                     const MainDashboardBody(),
                     SlidingUpPanel(
                       controller: _panelController,
-                      maxHeight: dimensions.screenHeight * 0.75,
+                      maxHeight: dimensions.screenHeight * 0.60,
                       minHeight: dimensions.screenHeight * 0.18,
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(slidingPanelTopRadius),
