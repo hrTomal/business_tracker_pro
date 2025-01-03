@@ -1,3 +1,7 @@
+import 'package:business_tracker/features/attribute-types/presentation/pages/add_attribute_types_page.dart';
+import 'package:business_tracker/features/attribute-types/presentation/pages/all_attribute_types_page.dart';
+import 'package:business_tracker/features/attributes/presentation/pages/add_attributes_page.dart';
+import 'package:business_tracker/features/attributes/presentation/pages/all_attributes_page.dart';
 import 'package:business_tracker/features/auth/presentation/pages/auth_page.dart';
 import 'package:business_tracker/features/auth/presentation/pages/register_page.dart';
 import 'package:business_tracker/features/brands/presentation/pages/add_brands.dart';
@@ -41,6 +45,10 @@ class AppRoutes {
   static const String createCompanyPage = CreateCompanyPage.routeName;
   static const String allBrandsPage = AllBrandsPage.routeName;
   static const String addBrandsPage = AddBrandsPage.routeName;
+  static const String addAttributeTypesPage = AddAttributeTypesPage.routeName;
+  static const String allAttributeTypesPage = AllAttributeTypesPage.routeName;
+  static const String addAttributesPage = AddAttributesPage.routeName;
+  static const String allAttributesPage = AllAttributesPage.routeName;
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -123,6 +131,22 @@ class AppRoutes {
       case addBrandsPage:
         return MaterialPageRoute(
           builder: (_) => const AddBrandsPage(),
+        );
+      case allAttributeTypesPage:
+        return MaterialPageRoute(
+          builder: (_) => const AllAttributeTypesPage(),
+        );
+      case addAttributeTypesPage:
+        return MaterialPageRoute(
+          builder: (_) => const AddAttributeTypesPage(),
+        );
+      case allAttributesPage:
+        return MaterialPageRoute(
+          builder: (_) => const AllAttributesPage(),
+        );
+      case addAttributesPage:
+        return MaterialPageRoute(
+          builder: (_) => const AddAttributesPage(),
         );
       default:
         return MaterialPageRoute(

@@ -6,32 +6,17 @@ import 'package:business_tracker/features/common/presentation/widgets/buttons/cu
 import 'package:business_tracker/features/common/presentation/widgets/misc/fixed_sized_box.dart';
 import 'package:business_tracker/features/common/presentation/widgets/snackbar/custom_error_snack_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class AddBrandsPage extends StatefulWidget {
-  static const String routeName = 'addBrandsPage';
-  const AddBrandsPage({super.key});
+class AddAttributeTypesPage extends StatefulWidget {
+  static const String routeName = 'addAttributeTypesPage';
+
+  const AddAttributeTypesPage({super.key});
 
   @override
-  State<AddBrandsPage> createState() => _AddBrandsPageState();
+  State<AddAttributeTypesPage> createState() => _AddAttributeTypesPageState();
 }
 
-class _AddBrandsPageState extends State<AddBrandsPage> {
-  String? selectedCompanyId;
-
-  @override
-  void initState() {
-    super.initState();
-    _loadSelectedCompanyId();
-  }
-
-  Future<void> _loadSelectedCompanyId() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      selectedCompanyId = prefs.getString('selectedCompanyId');
-    });
-  }
-
+class _AddAttributeTypesPageState extends State<AddAttributeTypesPage> {
   @override
   Widget build(BuildContext context) {
     final dimensions = AppDimensions(context);
@@ -39,7 +24,7 @@ class _AddBrandsPageState extends State<AddBrandsPage> {
 
     return Scaffold(
       appBar: const CustomAppBar(
-        title: 'Add Brand',
+        title: 'Attribute Types',
       ),
       floatingActionButton: CustomSaveFloatingActionButton(
         onPressed: () => _onSavePressed(context, controllers),
@@ -47,12 +32,12 @@ class _AddBrandsPageState extends State<AddBrandsPage> {
       body: Padding(
         padding: dimensions.pagePaddingGlobal,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('Company ID: ${selectedCompanyId ?? 'Not Selected'}'),
-            const FixedSizedBox(),
             CustomTextField(
               controller: controllers['name']!,
               labelText: 'Name',
+              hintText: 'Enter Attribute Type name',
             ),
             const FixedSizedBox(),
           ],
@@ -67,14 +52,13 @@ class _AddBrandsPageState extends State<AddBrandsPage> {
     };
   }
 
-  // Handle save button press
   void _onSavePressed(
       BuildContext context, Map<String, TextEditingController> controllers) {
     final errors = ValidationUtils.validateTextFields(
       [
         {
           'controller': controllers['name']!,
-          'errorMessage': 'Name is required',
+          'errorMessage': 'Attribute Type name is required',
         },
       ],
     );

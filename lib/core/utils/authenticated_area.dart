@@ -9,6 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthenticatedArea extends StatelessWidget {
   static const String routeName = 'AuthenticatedArea_page';
+
+  const AuthenticatedArea({super.key});
   @override
   Widget build(BuildContext context) {
     return BlocListener<GetCompanyBloc, GetCompanyState>(

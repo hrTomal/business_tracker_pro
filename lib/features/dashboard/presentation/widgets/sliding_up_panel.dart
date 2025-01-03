@@ -1,14 +1,12 @@
 import 'package:business_tracker/config/styles/app_dimensions.dart';
+import 'package:business_tracker/features/attribute-types/presentation/pages/all_attribute_types_page.dart';
+import 'package:business_tracker/features/attributes/presentation/pages/all_attributes_page.dart';
 import 'package:business_tracker/features/brands/presentation/pages/all_brands.dart';
 import 'package:business_tracker/features/categories/presentation/pages/all_categories.dart';
-import 'package:business_tracker/features/expenses/presentation/pages/all_expenses.dart';
-import 'package:business_tracker/features/investments/presentation/pages/investment_in_or_out_page.dart';
 import 'package:business_tracker/features/products/presentation/pages/add_product.dart';
 import 'package:business_tracker/features/products/presentation/pages/all_products.dart';
 import 'package:business_tracker/features/sales/presentation/pages/add_sale.dart';
 import 'package:business_tracker/features/settings/presentation/pages/settings_page.dart';
-import 'package:business_tracker/features/vendor/presentation/pages/all_vendors.dart';
-import 'package:business_tracker/features/warehouse/presentation/pages/all_warehouses.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/presentation/widgets/buttons/custom_tile_button.dart';
@@ -76,14 +74,14 @@ class SlidingUpPanelWidget extends StatelessWidget {
       // },
       {
         'icon': Icons.monetization_on_outlined,
-        'text': 'Add Sale',
+        'text': 'Sale',
         'onPressed': () {
           Navigator.of(context).pushNamed(AddSale.routeName);
         }
       },
       {
         'icon': Icons.money,
-        'text': 'Add Purchase',
+        'text': 'Purchase',
         'onPressed': () {
           Navigator.of(context).pushNamed(AddProduct.routeName);
         }
@@ -113,10 +111,17 @@ class SlidingUpPanelWidget extends StatelessWidget {
         'icon': Icons.edit_attributes_outlined,
         'text': 'Attributes',
         'onPressed': () {
-          Navigator.of(context).pushNamed(AllCategories.routeName);
+          Navigator.of(context).pushNamed(AllAttributesPage.routeName);
         }
       },
 
+      {
+        'icon': Icons.type_specimen_outlined,
+        'text': 'A Types',
+        'onPressed': () {
+          Navigator.of(context).pushNamed(AllAttributeTypesPage.routeName);
+        }
+      },
       // {'icon': Icons.shopping_bag, 'text': 'Sales', 'onPressed': () {}},
       // {'icon': Icons.money_rounded, 'text': 'Transactions', 'onPressed': () {}},
       // {'icon': Icons.add_box, 'text': 'Purchase', 'onPressed': () {}},

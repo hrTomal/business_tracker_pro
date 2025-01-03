@@ -1,4 +1,7 @@
 import 'package:business_tracker/features/auth/domain/repositories/AuthenticationRepositoryImpl.dart';
+import 'package:business_tracker/features/brands/data/datasources/BrandRemoteDataSource.dart';
+import 'package:business_tracker/features/brands/domain/repositories/BrandRepository.dart';
+import 'package:business_tracker/features/brands/domain/repositories/BrandRepositoryImpl.dart';
 import 'package:business_tracker/features/company/data/datasources/CompanyRemoteDataSource.dart';
 import 'package:business_tracker/features/company/domain/repositories/CompanyRepository.dart';
 import 'package:business_tracker/features/company/domain/repositories/CompanyRepositoryImpl.dart';
@@ -19,6 +22,8 @@ void setupServiceLocator() {
       () => CompanyRemoteDataSource());
   getIt.registerLazySingleton<ProductRemoteDataSource>(
       () => ProductRemoteDataSource());
+  getIt.registerLazySingleton<Brandremotedatasource>(
+      () => Brandremotedatasource());
 
   // Register Repository
   getIt.registerLazySingleton<AuthenticationRepository>(() =>
@@ -29,4 +34,7 @@ void setupServiceLocator() {
 
   getIt.registerLazySingleton<ProductRepository>(
       () => ProductRespositoryImpl(getIt<ProductRemoteDataSource>()));
+
+  getIt.registerLazySingleton<Brandrepository>(
+      () => BrandRepositoryImpl(getIt<Brandremotedatasource>()));
 }
