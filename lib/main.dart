@@ -6,6 +6,8 @@ import 'package:business_tracker/core/utils/service_locator.dart';
 import 'package:business_tracker/features/auth/presentation/blocs/login/auth_bloc.dart';
 import 'package:business_tracker/features/auth/presentation/blocs/register/register_bloc.dart';
 import 'package:business_tracker/features/auth/presentation/pages/auth_page.dart';
+import 'package:business_tracker/features/categories/domain/repositories/CategoryRepository.dart';
+import 'package:business_tracker/features/categories/presentation/blocs/category_cubit.dart';
 import 'package:business_tracker/features/company/presentation/blocs/get/get_company_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,16 +15,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'config/routes/app_routes.dart';
 
 void main() {
-  // Ensuring native splash screen is displayed while loading
-  // WidgetsBinding.ensureInitialized();
-  // FlutterNativeSplash.preserve(widgetsBinding: WidgetsBinding.instance);
-
   // Initialize service locator
   setupServiceLocator();
 
   runApp(
     MultiBlocProvider(
       providers: [
+        BlocProvider(
+            create: (context) =>
+                CategoryCubit(categoryRepository: getIt<CategoryRepository>())),
         BlocProvider(create: (context) => ThemeBloc()),
         BlocProvider(create: (context) => RegisterBloc()),
         BlocProvider(create: (context) => AuthBloc()),
@@ -63,9 +64,7 @@ class MyAppState extends State<MyApp> {
       future: tokenStorage.getAccessToken(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else {
@@ -75,7 +74,6 @@ class MyAppState extends State<MyApp> {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               navigateOnAuthSuccess(context, accessToken);
             });
-            // Return a placeholder while navigation is occurring
             return const Scaffold(
               body: Center(child: CircularProgressIndicator()),
             );

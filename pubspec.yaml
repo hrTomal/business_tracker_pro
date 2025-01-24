@@ -49,6 +49,7 @@ dependencies:
   flutter_secure_storage: ^9.2.2
   json_annotation: ^4.9.0
   shared_preferences: ^2.3.5
+  bloc: ^8.1.4
 
 dev_dependencies:
   flutter_test:

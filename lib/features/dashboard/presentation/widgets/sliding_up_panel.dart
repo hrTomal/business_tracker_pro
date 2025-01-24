@@ -14,9 +14,9 @@ import '../../../common/presentation/widgets/buttons/custom_tile_button.dart';
 class SlidingUpPanelWidget extends StatelessWidget {
   const SlidingUpPanelWidget({super.key});
 
-  void _navigateToSettings(BuildContext context) {
-    Navigator.pushNamed(context, SettingsPage.routeName);
-  }
+  // void _navigateToSettings(BuildContext context) {
+  //   Navigator.pushNamed(context, SettingsPage.routeName);
+  // }
 
   @override
   Widget build(BuildContext context) {

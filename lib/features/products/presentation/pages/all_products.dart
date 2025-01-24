@@ -33,7 +33,7 @@ class _AllProductsState extends State<AllProducts> {
   @override
   Widget build(BuildContext context) {
     final dimensions = AppDimensions(context);
-    var productCount = 10;
+    var productCount = 0;
     return Scaffold(
       appBar: CustomAppBar(
         title: 'Products',
