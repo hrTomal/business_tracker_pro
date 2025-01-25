@@ -1,11 +1,13 @@
 import 'package:business_tracker/config/styles/app_dimensions.dart';
 import 'package:business_tracker/core/utils/validation_utils.dart';
+import 'package:business_tracker/features/attribute-types/presentation/blocs/AttributeTypeCubit.dart';
 import 'package:business_tracker/features/common/presentation/widgets/CustomAppBar/custom_app_bar.dart';
 import 'package:business_tracker/features/common/presentation/widgets/InputFields/common_text_input_field.dart';
 import 'package:business_tracker/features/common/presentation/widgets/buttons/custom_save_floatingaction_button.dart';
 import 'package:business_tracker/features/common/presentation/widgets/misc/fixed_sized_box.dart';
 import 'package:business_tracker/features/common/presentation/widgets/snackbar/custom_error_snack_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddAttributeTypesPage extends StatefulWidget {
   static const String routeName = 'addAttributeTypesPage';
@@ -66,7 +68,23 @@ class _AddAttributeTypesPageState extends State<AddAttributeTypesPage> {
     if (errors.isNotEmpty) {
       showErrorSnackbar(context: context, errors: errors);
     } else {
-      // Handle successful save logic here
+      final name = controllers['name']!.text.trim();
+
+      // Call the Cubit to add the attribute type
+      final attributeCubit = context.read<Attributetypecubit>();
+
+      attributeCubit.addAttributeType(name).then((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Attribute Type added successfully!')),
+        );
+        Navigator.of(context).pop(true);
+      }).catchError((error) {
+        // Handle errors gracefully
+        showErrorSnackbar(
+          context: context,
+          errors: [error.toString()],
+        );
+      });
     }
   }
 }

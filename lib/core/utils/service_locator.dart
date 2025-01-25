@@ -1,3 +1,9 @@
+import 'package:business_tracker/features/attribute-types/data/datasources/AttributeTypeDataSource.dart';
+import 'package:business_tracker/features/attribute-types/data/repository/AttributeTypeRepository.dart';
+import 'package:business_tracker/features/attribute-types/data/repository/AttributeTypeRepositoryImpl.dart';
+import 'package:business_tracker/features/attributes/data/datasources/attribute_remote_data_source.dart';
+import 'package:business_tracker/features/attributes/data/repository/attribute_repository.dart';
+import 'package:business_tracker/features/attributes/data/repository/attribute_repository_impl.dart';
 import 'package:business_tracker/features/auth/domain/repositories/AuthenticationRepositoryImpl.dart';
 import 'package:business_tracker/features/brands/data/datasources/BrandRemoteDataSource.dart';
 import 'package:business_tracker/features/brands/domain/repositories/BrandRepository.dart';
@@ -29,6 +35,10 @@ void setupServiceLocator() {
       () => Brandremotedatasource());
   getIt.registerLazySingleton<CategoryRemoteSource>(
       () => CategoryRemoteSource());
+  getIt.registerLazySingleton<Attributetypedatasource>(
+      () => Attributetypedatasource());
+  getIt.registerLazySingleton<AttributeRemoteDataSource>(
+      () => AttributeRemoteDataSource());
 
   // Register Repository
   getIt.registerLazySingleton<AuthenticationRepository>(() =>
@@ -45,4 +55,10 @@ void setupServiceLocator() {
 
   getIt.registerLazySingleton<CategoryRepository>(
       () => CategoryRepositoryImpl(getIt<CategoryRemoteSource>()));
+
+  getIt.registerLazySingleton<AttributeTypeRepository>(
+      () => AttributeTypeRepositoryImpl(getIt<Attributetypedatasource>()));
+
+  getIt.registerLazySingleton<AttributeRepository>(
+      () => AttributeRepositoryImpl(getIt<AttributeRemoteDataSource>()));
 }

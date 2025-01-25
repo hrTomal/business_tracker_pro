@@ -7,6 +7,7 @@ import 'package:business_tracker/features/products/presentation/pages/add_produc
 import 'package:business_tracker/features/products/presentation/pages/all_products.dart';
 import 'package:business_tracker/features/sales/presentation/pages/add_sale.dart';
 import 'package:business_tracker/features/settings/presentation/pages/settings_page.dart';
+import 'package:business_tracker/features/vendor/presentation/pages/all_vendors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/presentation/widgets/buttons/custom_tile_button.dart';
@@ -30,13 +31,13 @@ class SlidingUpPanelWidget extends StatelessWidget {
           Navigator.of(context).pushNamed(AllProducts.routeName);
         }
       },
-      // {
-      //   'icon': Icons.inventory,
-      //   'text': 'Vendors',
-      //   'onPressed': () {
-      //     Navigator.of(context).pushNamed(AllVendorsPage.routeName);
-      //   }
-      // },
+      {
+        'icon': Icons.inventory,
+        'text': 'Vendors',
+        'onPressed': () {
+          Navigator.of(context).pushNamed(AllVendorsPage.routeName);
+        }
+      },
       // {
       //   'icon': Icons.house,
       //   'text': 'Warehouses',

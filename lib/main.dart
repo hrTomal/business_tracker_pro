@@ -3,6 +3,10 @@ import 'package:business_tracker/config/theme/bloc/theme_state.dart';
 import 'package:business_tracker/core/storage/token_storage.dart';
 import 'package:business_tracker/core/utils/navigate_on_auth_success_helper.dart';
 import 'package:business_tracker/core/utils/service_locator.dart';
+import 'package:business_tracker/features/attribute-types/data/repository/AttributeTypeRepository.dart';
+import 'package:business_tracker/features/attribute-types/presentation/blocs/AttributeTypeCubit.dart';
+import 'package:business_tracker/features/attributes/data/repository/attribute_repository.dart';
+import 'package:business_tracker/features/attributes/presentation/blocs/attribute_cubit.dart';
 import 'package:business_tracker/features/auth/presentation/blocs/login/auth_bloc.dart';
 import 'package:business_tracker/features/auth/presentation/blocs/register/register_bloc.dart';
 import 'package:business_tracker/features/auth/presentation/pages/auth_page.dart';
@@ -21,13 +25,21 @@ void main() {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(
-            create: (context) =>
-                CategoryCubit(categoryRepository: getIt<CategoryRepository>())),
         BlocProvider(create: (context) => ThemeBloc()),
         BlocProvider(create: (context) => RegisterBloc()),
         BlocProvider(create: (context) => AuthBloc()),
-        BlocProvider(create: (context) => GetCompanyBloc())
+        BlocProvider(create: (context) => GetCompanyBloc()),
+        BlocProvider(
+          create: (context) =>
+              CategoryCubit(categoryRepository: getIt<CategoryRepository>()),
+        ),
+        BlocProvider(
+          create: (context) =>
+              Attributetypecubit(getIt<AttributeTypeRepository>()),
+        ),
+        BlocProvider(
+          create: (context) => AttributeCubit(getIt<AttributeRepository>()),
+        ),
       ],
       child: const MyApp(),
     ),

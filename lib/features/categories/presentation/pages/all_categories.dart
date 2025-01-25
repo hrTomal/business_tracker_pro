@@ -4,12 +4,12 @@ import 'package:business_tracker/features/categories/domain/repositories/Categor
 import 'package:business_tracker/features/categories/presentation/blocs/category_cubit.dart';
 import 'package:business_tracker/features/categories/presentation/blocs/category_state.dart';
 import 'package:business_tracker/features/categories/presentation/pages/add_categories.dart';
-import 'package:business_tracker/features/categories/presentation/widgets/category_list_card.dart';
 import 'package:business_tracker/features/common/presentation/widgets/CustomAppBar/custom_app_bar.dart';
+import 'package:business_tracker/features/common/presentation/widgets/CustomCards/generic_name_delete_card.dart';
 import 'package:business_tracker/features/common/presentation/widgets/misc/fixed_sized_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart'; // Import GetIt
+import 'package:get_it/get_it.dart';
 
 class AllCategories extends StatelessWidget {
   static const String routeName = 'allCategoriesPage';
@@ -105,9 +105,20 @@ class AllCategories extends StatelessWidget {
       itemCount: categories.length,
       itemBuilder: (context, index) {
         final category = categories[index];
-        return CategoryListCard(
-          imageUrl: 'https://placehold.co/600x400',
-          title: category.name ?? 'N/A',
+        // return CategoryListCard(
+        //   imageUrl: 'https://placehold.co/600x400',
+        //   title: category.name ?? 'N/A',
+        // );
+        return GenericNameDeleteCard(
+          name: category.name ?? 'Unknown',
+          onDelete: () {
+            // TODO: Add delete logic
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Deleted ${category.name ?? 'Unknown'}'),
+              ),
+            );
+          },
         );
       },
     );

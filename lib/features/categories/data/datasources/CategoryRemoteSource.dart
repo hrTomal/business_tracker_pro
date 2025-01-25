@@ -10,7 +10,7 @@ class CategoryRemoteSource {
       final prefs = await SharedPreferences.getInstance();
       final selectedCompanyId = prefs.getString('selectedCompanyId');
       if (selectedCompanyId == null) {
-        throw Exception('User ID not found in SharedPreferences');
+        throw Exception('Company ID not found in SharedPreferences');
       }
       final url = '/product/categories?company=$selectedCompanyId';
       final response = await _apiClient.request('GET', url);
