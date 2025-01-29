@@ -1,10 +1,8 @@
 import 'package:business_tracker/config/styles/app_dimensions.dart';
 import 'package:business_tracker/core/utils/validation_utils.dart';
 import 'package:business_tracker/features/common/presentation/widgets/CustomAppBar/custom_app_bar.dart';
-import 'package:business_tracker/features/common/presentation/widgets/CustomRadioButton/custom_radio_button_row.dart';
 import 'package:business_tracker/features/common/presentation/widgets/InputFields/common_text_input_field.dart';
 import 'package:business_tracker/features/common/presentation/widgets/buttons/custom_save_floatingaction_button.dart';
-import 'package:business_tracker/features/common/presentation/widgets/dropdown/custom_dropdown_search.dart';
 import 'package:business_tracker/features/common/presentation/widgets/misc/fixed_sized_box.dart';
 import 'package:business_tracker/features/common/presentation/widgets/snackbar/custom_error_snack_bar.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +16,7 @@ class AddVendorPage extends StatefulWidget {
 }
 
 class _AddVendorPageState extends State<AddVendorPage> {
-  var _balanceType = 'Payable';
+  // var _balanceType = 'Payable';
 
   @override
   Widget build(BuildContext context) {
@@ -38,55 +36,28 @@ class _AddVendorPageState extends State<AddVendorPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                height: 150,
-                width: 150,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(5),
-                  ),
-                ),
-              ),
-              const FixedSizedBox(),
+              // Container(
+              //   height: 150,
+              //   width: 150,
+              //   decoration: BoxDecoration(
+              //     border: Border.all(
+              //       color: Theme.of(context).colorScheme.primary,
+              //     ),
+              //     borderRadius: const BorderRadius.all(
+              //       Radius.circular(5),
+              //     ),
+              //   ),
+              // ),
+              // const FixedSizedBox(),
               CustomTextField(
                 controller: controllers['fullName']!,
                 labelText: 'Full Name',
               ),
               const FixedSizedBox(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  CustomTextField(
-                    controller: controllers['phone']!,
-                    labelText: 'Phone',
-                    width: dimensions.halfTextFieldWidth,
-                  ),
-                  SizedBox(
-                    width: dimensions.halfTextFieldWidth,
-                    child: CustomDropdownSearch(
-                      items: const [
-                        'Option 1',
-                        'Option 2',
-                        'Option 3',
-                        'Option 4',
-                        'Option 5',
-                        'Option 6'
-                      ],
-                      labelText: 'Select Category',
-                      createNewText: 'Create new',
-                      onChanged: (value) {
-                        print('Selected: $value');
-                      },
-                      itemAsString: (item) => item,
-                      onCreateNew: () {
-                        // Navigator.of(context).pushNamed(AddCategories.routeName);
-                      },
-                    ),
-                  )
-                ],
+              CustomTextField(
+                controller: controllers['phone']!,
+                labelText: 'Phone',
+                // width: dimensions.halfTextFieldWidth,
               ),
               const FixedSizedBox(),
               CustomTextField(
@@ -95,40 +66,10 @@ class _AddVendorPageState extends State<AddVendorPage> {
               ),
               const FixedSizedBox(),
               CustomTextField(
-                controller: controllers['address']!,
-                labelText: 'Address',
+                controller: controllers['website']!,
+                labelText: 'Website',
               ),
               const FixedSizedBox(),
-              CustomTextField(
-                controller: controllers['description']!,
-                labelText: 'Description',
-              ),
-              const FixedSizedBox(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SizedBox(
-                    width: dimensions.screenWidth * 0.45,
-                    child: CustomTextField(
-                      controller: controllers['openingBalance']!,
-                      labelText: 'Opening Balance',
-                      isNumberOnly: true,
-                    ),
-                  ),
-                  SizedBox(
-                    width: dimensions.screenWidth * 0.45,
-                    child: CustomRadioButtonRow(
-                      options: const ['Payable', 'Receivable'],
-                      groupValue: _balanceType,
-                      onChanged: (value) {
-                        setState(() {
-                          _balanceType = value!;
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
             ],
           ),
         ),
@@ -142,9 +83,7 @@ class _AddVendorPageState extends State<AddVendorPage> {
       'fullName': TextEditingController(),
       'phone': TextEditingController(),
       'email': TextEditingController(),
-      'address': TextEditingController(),
-      'description': TextEditingController(),
-      'openingBalance': TextEditingController(text: '0.00'),
+      'website': TextEditingController(),
     };
   }
 
@@ -160,14 +99,6 @@ class _AddVendorPageState extends State<AddVendorPage> {
         {
           'controller': controllers['phone']!,
           'errorMessage': 'Phone No is required',
-        },
-        {
-          'controller': controllers['email']!,
-          'errorMessage': 'Email is required',
-        },
-        {
-          'controller': controllers['address']!,
-          'errorMessage': 'Address is required',
         },
       ],
     );

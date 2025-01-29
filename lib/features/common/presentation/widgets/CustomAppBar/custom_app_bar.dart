@@ -15,6 +15,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
       foregroundColor: Theme.of(context).colorScheme.inverseSurface,
       actions: actions,
+      shape: const ContinuousRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(32), // Adjust the radius to match your design
+        ),
+      ),
+      elevation: 8,
     );
   }
 
