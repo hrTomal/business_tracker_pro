@@ -5,6 +5,7 @@ import 'package:business_tracker/features/brands/presentation/pages/all_brands.d
 import 'package:business_tracker/features/categories/presentation/pages/all_categories.dart';
 import 'package:business_tracker/features/products/presentation/pages/add_product.dart';
 import 'package:business_tracker/features/products/presentation/pages/all_products.dart';
+import 'package:business_tracker/features/purchase/presentation/pages/all_purchases.dart';
 import 'package:business_tracker/features/sales/presentation/pages/add_sale.dart';
 import 'package:business_tracker/features/settings/presentation/pages/settings_page.dart';
 import 'package:business_tracker/features/vendor/presentation/pages/all_vendors.dart';
@@ -84,7 +85,7 @@ class SlidingUpPanelWidget extends StatelessWidget {
         'icon': Icons.money,
         'text': 'Purchase',
         'onPressed': () {
-          Navigator.of(context).pushNamed(AddProduct.routeName);
+          Navigator.of(context).pushNamed(AllPurchases.routeName);
         }
       },
       {

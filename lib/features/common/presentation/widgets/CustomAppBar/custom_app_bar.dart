@@ -20,7 +20,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           bottom: Radius.circular(32), // Adjust the radius to match your design
         ),
       ),
-      elevation: 8,
+      elevation: 4,
     );
   }
 

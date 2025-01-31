@@ -13,6 +13,8 @@ import 'package:business_tracker/features/auth/presentation/pages/auth_page.dart
 import 'package:business_tracker/features/categories/domain/repositories/CategoryRepository.dart';
 import 'package:business_tracker/features/categories/presentation/blocs/category_cubit.dart';
 import 'package:business_tracker/features/company/presentation/blocs/get/get_company_bloc.dart';
+import 'package:business_tracker/features/vendor/data/repository/vendor_repository.dart';
+import 'package:business_tracker/features/vendor/presentation/blocs/vendors_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,6 +41,9 @@ void main() {
         ),
         BlocProvider(
           create: (context) => AttributeCubit(getIt<AttributeRepository>()),
+        ),
+        BlocProvider(
+          create: (context) => VendorCubit(getIt<VendorRepository>()),
         ),
       ],
       child: const MyApp(),

@@ -16,6 +16,7 @@ import 'package:business_tracker/features/expenses/presentation/pages/all_expens
 import 'package:business_tracker/features/investments/presentation/pages/investment_in_or_out_page.dart';
 import 'package:business_tracker/features/products/presentation/pages/add_product.dart';
 import 'package:business_tracker/features/products/presentation/pages/all_products.dart';
+import 'package:business_tracker/features/purchase/presentation/pages/all_purchases.dart';
 import 'package:business_tracker/features/sales/presentation/pages/add_sale.dart';
 import 'package:business_tracker/features/settings/presentation/pages/settings_page.dart';
 import 'package:business_tracker/features/vendor/presentation/pages/add_vendors.dart';
@@ -49,6 +50,7 @@ class AppRoutes {
   static const String allAttributeTypesPage = AllAttributeTypesPage.routeName;
   static const String addAttributesPage = AddAttributesPage.routeName;
   static const String allAttributesPage = AllAttributesPage.routeName;
+  static const String allPurchasesPage = AllPurchases.routeName;
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -147,6 +149,10 @@ class AppRoutes {
       case addAttributesPage:
         return MaterialPageRoute(
           builder: (_) => const AddAttributesPage(),
+        );
+      case allPurchasesPage:
+        return MaterialPageRoute(
+          builder: (_) => const AllPurchases(),
         );
       default:
         return MaterialPageRoute(

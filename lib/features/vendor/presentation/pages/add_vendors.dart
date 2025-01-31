@@ -5,7 +5,9 @@ import 'package:business_tracker/features/common/presentation/widgets/InputField
 import 'package:business_tracker/features/common/presentation/widgets/buttons/custom_save_floatingaction_button.dart';
 import 'package:business_tracker/features/common/presentation/widgets/misc/fixed_sized_box.dart';
 import 'package:business_tracker/features/common/presentation/widgets/snackbar/custom_error_snack_bar.dart';
+import 'package:business_tracker/features/vendor/presentation/blocs/vendors_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddVendorPage extends StatefulWidget {
   static const String routeName = 'addVendorsPage';
@@ -36,19 +38,6 @@ class _AddVendorPageState extends State<AddVendorPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Container(
-              //   height: 150,
-              //   width: 150,
-              //   decoration: BoxDecoration(
-              //     border: Border.all(
-              //       color: Theme.of(context).colorScheme.primary,
-              //     ),
-              //     borderRadius: const BorderRadius.all(
-              //       Radius.circular(5),
-              //     ),
-              //   ),
-              // ),
-              // const FixedSizedBox(),
               CustomTextField(
                 controller: controllers['fullName']!,
                 labelText: 'Full Name',
@@ -106,7 +95,25 @@ class _AddVendorPageState extends State<AddVendorPage> {
     if (errors.isNotEmpty) {
       showErrorSnackbar(context: context, errors: errors);
     } else {
-      // Handle successful save logic here
+      final name = controllers['fullName']!.text.trim();
+      final phone = controllers['phone']!.text.trim();
+      final website = controllers['website']!.text.trim();
+      final email = controllers['email']!.text.trim();
+
+      final vendorCubit = context.read<VendorCubit>();
+
+      vendorCubit.addVendor(name, email, phone, website).then((_) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Vendor added successfully!')),
+        );
+        Navigator.of(context).pop(true);
+      }).catchError((error) {
+        showErrorSnackbar(
+          // ignore: use_build_context_synchronously
+          context: context,
+          errors: [error.toString()],
+        );
+      });
     }
   }
 }
