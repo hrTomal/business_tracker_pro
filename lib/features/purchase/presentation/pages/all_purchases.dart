@@ -1,5 +1,6 @@
 import 'package:business_tracker/config/styles/app_dimensions.dart';
 import 'package:business_tracker/features/common/presentation/widgets/CustomAppBar/custom_app_bar.dart';
+import 'package:business_tracker/features/purchase/presentation/pages/add_purchases.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -14,14 +15,13 @@ class AllPurchases extends StatelessWidget {
 
     var floatingActionButton = FloatingActionButton.extended(
       onPressed: () async {
-        // var result = await Navigator.of(context)
-        //     .pushNamed(AddAttributeTypesPage.routeName);
+        await Navigator.of(context).pushNamed(AddPurchasesPage.routeName);
 
         // if (result == true) {
         //   context.read<Attributetypecubit>().loadAttributeTypes();
         // }
       },
-      label: const Text('Add Attribute Types'),
+      label: const Text('Add Purschase Order'),
       icon: const Icon(Icons.add_circle_outlined),
     );
 

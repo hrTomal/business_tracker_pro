@@ -3,7 +3,6 @@ import 'package:business_tracker/features/attribute-types/presentation/pages/all
 import 'package:business_tracker/features/attributes/presentation/pages/all_attributes_page.dart';
 import 'package:business_tracker/features/brands/presentation/pages/all_brands.dart';
 import 'package:business_tracker/features/categories/presentation/pages/all_categories.dart';
-import 'package:business_tracker/features/products/presentation/pages/add_product.dart';
 import 'package:business_tracker/features/products/presentation/pages/all_products.dart';
 import 'package:business_tracker/features/purchase/presentation/pages/all_purchases.dart';
 import 'package:business_tracker/features/sales/presentation/pages/add_sale.dart';

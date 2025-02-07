@@ -1,11 +1,19 @@
+import 'package:business_tracker/features/attribute-types/domain/entities/AttributeTypeResponse.dart';
+import 'package:business_tracker/features/attribute-types/presentation/blocs/AttributeTypeCubit.dart';
+import 'package:business_tracker/features/categories/domain/entities/CategoryResponse.dart';
+import 'package:business_tracker/features/categories/presentation/blocs/category_cubit.dart';
+import 'package:business_tracker/features/categories/presentation/blocs/category_state.dart';
 import 'package:business_tracker/features/common/presentation/widgets/CustomAppBar/custom_app_bar.dart';
+import 'package:business_tracker/features/common/presentation/widgets/CustomDropdownFromCubit/custom_dropdown_from_cubit.dart';
 import 'package:business_tracker/features/common/presentation/widgets/InputFields/common_text_input_field.dart';
 import 'package:business_tracker/features/common/presentation/widgets/buttons/custom_save_floatingaction_button.dart';
 import 'package:business_tracker/features/common/presentation/widgets/misc/fixed_sized_box.dart';
+
 import 'package:flutter/material.dart';
 import 'package:business_tracker/features/products/domain/repositories/ProductRepository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddProduct extends StatefulWidget {
   static const String routeName = 'addProduct';
@@ -24,8 +32,10 @@ class _AddProductState extends State<AddProduct> {
       TextEditingController();
   final TextEditingController _wholesalePriceTextController =
       TextEditingController();
+  final TextEditingController _costTextController = TextEditingController();
   final TextEditingController _additionalIdentifierTextController =
       TextEditingController();
+  final TextEditingController _skuTextController = TextEditingController();
 
   String? selectedCompanyId;
 
@@ -81,6 +91,12 @@ class _AddProductState extends State<AddProduct> {
             CustomTextField(
                 controller: _descriptionController, labelText: 'Description'),
             const FixedSizedBox(),
+            CustomTextField(
+              controller: _costTextController,
+              labelText: 'Cost',
+              isNumberOnly: true,
+            ),
+            const FixedSizedBox(),
             Row(
               children: [
                 Expanded(
@@ -90,7 +106,7 @@ class _AddProductState extends State<AddProduct> {
                     isNumberOnly: true,
                   ),
                 ),
-                const VerticalDivider(),
+                const SizedBox(width: 16),
                 Expanded(
                   child: CustomTextField(
                     controller: _retailPriceTextController,
@@ -102,9 +118,55 @@ class _AddProductState extends State<AddProduct> {
             ),
             const FixedSizedBox(),
             CustomTextField(
+              controller: _skuTextController,
+              labelText: 'SKU',
+            ),
+            const FixedSizedBox(),
+            CustomTextField(
               controller: _additionalIdentifierTextController,
               labelText: 'Additional Identifier',
             ),
+            const FixedSizedBox(),
+            BlocBuilder<CategoryCubit, CategoryState>(
+              builder: (context, state) {
+                List<CategoryInformation> categories = [];
+
+                if (state is CategoryLoaded) {
+                  categories = state.categories;
+                }
+
+                return CustomDropdownFromCubit<CategoryInformation>(
+                  label: 'Category',
+                  loadItems: () =>
+                      context.read<CategoryCubit>().fetchCategories(),
+                  items: categories,
+                  getLabel: (item) => item.name ?? "N/A",
+                  getKey: (item) => item.id.toString(),
+                  onChanged: (selectedId) {
+                    print('Selected ID: $selectedId');
+                  },
+                  selectedValue: null,
+                );
+              },
+            ),
+            const FixedSizedBox(),
+            BlocBuilder<Attributetypecubit, List<AttributeType>>(
+              builder: (context, state) {
+                return CustomDropdownFromCubit<AttributeType>(
+                  label: 'Attribute Type',
+                  loadItems: () =>
+                      context.read<Attributetypecubit>().loadAttributeTypes(),
+                  items: state,
+                  getLabel: (item) => item.name ?? "N/A",
+                  getKey: (item) => item.id.toString(),
+                  onChanged: (selectedId) {
+                    print('Selected ID: $selectedId');
+                  },
+                  selectedValue: null,
+                );
+              },
+            ),
+            const FixedSizedBox(),
           ],
         ),
       ),
