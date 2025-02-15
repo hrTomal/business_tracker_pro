@@ -1,42 +1,38 @@
+import 'package:business_tracker/features/products/domain/entities/ProductsResponse.dart';
 import 'package:business_tracker/features/products/presentation/widgets/product_card.dart';
 import 'package:flutter/material.dart';
 
 class ProductsGridView extends StatelessWidget {
-  const ProductsGridView({
-    super.key,
-  });
+  final List<ProductInfo> products;
+
+  const ProductsGridView({super.key, required this.products});
 
   @override
   Widget build(BuildContext context) {
     var pageWidth = MediaQuery.of(context).size.width;
-    var itemCount = 10;
+
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: _getCrossAxisCount(pageWidth),
         crossAxisSpacing: 6.0,
         mainAxisSpacing: 6.0,
-        childAspectRatio: 0.64,
+        childAspectRatio: 1.2,
       ),
-      itemCount: itemCount,
+      itemCount: products.length,
       itemBuilder: (context, index) {
+        final product = products[index];
         return ProductCard(
-          imageUrl: 'https://via.placeholder.com/150',
-          title: 'Product ${index + 1}',
+          imageUrl: 'https://placehold.co/600x400/png',
+          title: product.name ?? 'Unnamed Product',
         );
       },
     );
   }
 
-  // Determine the number of columns based on the screen width
   int _getCrossAxisCount(double width) {
-    if (width > 1200) {
-      return 5; // Large screen
-    } else if (width > 800) {
-      return 4; // Medium screen
-    } else if (width > 499) {
-      return 3; // Small screen
-    } else {
-      return 2; // Very small screen
-    }
+    if (width > 1200) return 5;
+    if (width > 800) return 4;
+    if (width > 499) return 3;
+    return 2;
   }
 }

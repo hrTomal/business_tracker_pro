@@ -7,6 +7,7 @@ class CustomTextField extends StatelessWidget {
   final String? hintText;
   final String? labelText;
   final bool isNumberOnly;
+  final ValueChanged<String>? onChanged;
 
   const CustomTextField({
     super.key,
@@ -16,6 +17,7 @@ class CustomTextField extends StatelessWidget {
     this.hintText,
     this.labelText,
     this.isNumberOnly = false,
+    this.onChanged,
   });
 
   @override
@@ -35,6 +37,7 @@ class CustomTextField extends StatelessWidget {
             borderSide: BorderSide(color: theme.colorScheme.primary),
           ),
         ),
+        onChanged: onChanged,
       ),
     );
   }

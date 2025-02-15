@@ -16,7 +16,7 @@ class AuthenticationPage extends StatefulWidget {
 
 class _AuthenticationPageState extends State<AuthenticationPage> {
   final TextEditingController _usernameTextController =
-      TextEditingController(text: 'username2');
+      TextEditingController(text: 'username1');
 
   final TextEditingController _passwordTextController =
       TextEditingController(text: '1');

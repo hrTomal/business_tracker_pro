@@ -79,40 +79,5 @@ class AllVendorsPage extends StatelessWidget {
         ),
       ),
     );
-
-    // Scaffold(
-    //   appBar: const CustomAppBar(
-    //     title: 'All Vendors',
-    //   ),
-    //   floatingActionButton: vendorCount != 0 ? floatingActionButton : null,
-    //   body: Padding(
-    //     padding: dimensions.pagePaddingGlobal,
-    //     child: vendorCount == 0
-    //         ? Center(
-    //             child: Column(
-    //               mainAxisAlignment: MainAxisAlignment.center,
-    //               children: [
-    //                 const Text(
-    //                   'There is no Vendors added.',
-    //                   style: TextStyle(
-    //                     fontWeight: FontWeight.bold,
-    //                   ),
-    //                 ),
-    //                 const FixedSizedBox(),
-    //                 floatingActionButton,
-    //               ],
-    //             ),
-    //           )
-    //         : ListView.builder(
-    //             itemCount: vendorCount,
-    //             itemBuilder: (context, index) {
-    //               return VendorListViewCard(
-    //                 imageUrl: 'https://via.placeholder.com/150',
-    //                 title: 'Vendor ${index + 1}',
-    //               );
-    //             },
-    //           ),
-    //   ),
-    // );
   }
 }

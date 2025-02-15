@@ -13,8 +13,14 @@ import 'package:business_tracker/features/auth/presentation/pages/auth_page.dart
 import 'package:business_tracker/features/categories/domain/repositories/CategoryRepository.dart';
 import 'package:business_tracker/features/categories/presentation/blocs/category_cubit.dart';
 import 'package:business_tracker/features/company/presentation/blocs/get/get_company_bloc.dart';
+import 'package:business_tracker/features/products/data/repository/ProductRepository.dart';
+import 'package:business_tracker/features/products/presentation/blocs/products_cubit.dart';
+import 'package:business_tracker/features/purchase/data/repository/purchase_repository_impl.dart';
+import 'package:business_tracker/features/purchase/presentation/blocs/purchase_cubit.dart';
 import 'package:business_tracker/features/vendor/data/repository/vendor_repository.dart';
 import 'package:business_tracker/features/vendor/presentation/blocs/vendors_cubit.dart';
+import 'package:business_tracker/features/warehouse/data/repository/warehouse_repository.dart';
+import 'package:business_tracker/features/warehouse/presentation/blocs/warehouse_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -44,6 +50,15 @@ void main() {
         ),
         BlocProvider(
           create: (context) => VendorCubit(getIt<VendorRepository>()),
+        ),
+        BlocProvider(
+          create: (context) => ProductsCubit(getIt<Productrepository>()),
+        ),
+        BlocProvider(
+          create: (context) => PurchaseCubit(getIt<PurchaseRepository>()),
+        ),
+        BlocProvider(
+          create: (context) => WarehouseCubit(getIt<WarehouseRepository>()),
         ),
       ],
       child: const MyApp(),

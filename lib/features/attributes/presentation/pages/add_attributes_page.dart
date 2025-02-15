@@ -1,6 +1,7 @@
 import 'package:business_tracker/config/styles/app_dimensions.dart';
 import 'package:business_tracker/core/utils/validation_utils.dart';
 import 'package:business_tracker/features/attribute-types/presentation/blocs/AttributeTypeCubit.dart';
+import 'package:business_tracker/features/attribute-types/presentation/pages/add_attribute_types_page.dart';
 import 'package:business_tracker/features/attributes/presentation/blocs/attribute_cubit.dart';
 import 'package:business_tracker/features/common/presentation/widgets/CustomAppBar/custom_app_bar.dart';
 import 'package:business_tracker/features/common/presentation/widgets/InputFields/common_text_input_field.dart';
@@ -26,7 +27,6 @@ class _AddAttributesPageState extends State<AddAttributesPage> {
   @override
   void initState() {
     super.initState();
-    // Load attribute types when the page is initialized
     context.read<Attributetypecubit>().loadAttributeTypes();
   }
 
@@ -39,25 +39,38 @@ class _AddAttributesPageState extends State<AddAttributesPage> {
       appBar: const CustomAppBar(
         title: 'Add Attribute',
       ),
-      floatingActionButton: CustomSaveFloatingActionButton(
-        onPressed: () => _onSavePressed(context, controllers),
-      ),
       body: Padding(
         padding: dimensions.pagePaddingGlobal,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Select Attribute Type',
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            const SizedBox(height: 8),
-            BlocBuilder<Attributetypecubit, List<AttributeType>>(
-              builder: (context, attributeTypes) {
-                if (attributeTypes.isEmpty) {
-                  return const CircularProgressIndicator();
-                }
-                return DropdownButton<AttributeType>(
+        child: BlocBuilder<Attributetypecubit, List<AttributeType>>(
+          builder: (context, attributeTypes) {
+            if (attributeTypes.isEmpty) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'There are no attribute types added. Please add some first.',
+                    textAlign: TextAlign.center,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context)
+                          .pushNamed(AddAttributeTypesPage.routeName);
+                    },
+                    child: const Text('Go to Attribute Type Page'),
+                  ),
+                ],
+              );
+            }
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Select Attribute Type',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 8),
+                DropdownButton<AttributeType>(
                   isExpanded: true,
                   value: selectedAttributeType,
                   hint: const Text('Choose an Attribute Type'),
@@ -72,17 +85,28 @@ class _AddAttributesPageState extends State<AddAttributesPage> {
                             child: Text(type.name ?? 'N/A'),
                           ))
                       .toList(),
-                );
-              },
-            ),
-            const FixedSizedBox(),
-            CustomTextField(
-              controller: controllers['name']!,
-              labelText: 'Name',
-            ),
-            const FixedSizedBox(),
-          ],
+                ),
+                const FixedSizedBox(),
+                CustomTextField(
+                  controller: controllers['name']!,
+                  labelText: 'Name',
+                ),
+                const FixedSizedBox(),
+              ],
+            );
+          },
         ),
+      ),
+      floatingActionButton:
+          BlocBuilder<Attributetypecubit, List<AttributeType>>(
+        builder: (context, attributeTypes) {
+          if (attributeTypes.isEmpty) {
+            return const SizedBox.shrink();
+          }
+          return CustomSaveFloatingActionButton(
+            onPressed: () => _onSavePressed(context, controllers),
+          );
+        },
       ),
     );
   }
@@ -111,10 +135,7 @@ class _AddAttributesPageState extends State<AddAttributesPage> {
     if (errors.isNotEmpty) {
       showErrorSnackbar(context: context, errors: errors);
     } else {
-      // Handle successful save logic here
-      // print('Saving attribute with name: ${controllers['name']!.text}');
-      // print('Selected Attribute Type: ${selectedAttributeType?.id}');
-      var name = controllers['name']!.text;
+      final name = controllers['name']!.text;
       final attributeCubit = context.read<AttributeCubit>();
 
       attributeCubit
@@ -125,7 +146,6 @@ class _AddAttributesPageState extends State<AddAttributesPage> {
         );
         Navigator.of(context).pop(true);
       }).catchError((error) {
-        // Handle errors gracefully
         showErrorSnackbar(
           context: context,
           errors: [error.toString()],

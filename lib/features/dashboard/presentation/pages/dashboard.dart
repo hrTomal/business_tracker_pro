@@ -102,7 +102,7 @@ class _DashboardState extends State<Dashboard> {
               );
             } else {
               return const Center(
-                child: Text('Please wait while we fetch your data.*****'),
+                child: Text('Dashboard Data is loading, Please wait.'),
               );
             }
           })),

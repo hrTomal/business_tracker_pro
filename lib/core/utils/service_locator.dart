@@ -15,11 +15,17 @@ import 'package:business_tracker/features/company/data/datasources/CompanyRemote
 import 'package:business_tracker/features/company/domain/repositories/CompanyRepository.dart';
 import 'package:business_tracker/features/company/domain/repositories/CompanyRepositoryImpl.dart';
 import 'package:business_tracker/features/products/data/datasources/ProductRemoteDataSource.dart';
-import 'package:business_tracker/features/products/domain/repositories/ProductRepository.dart';
-import 'package:business_tracker/features/products/domain/repositories/ProductRespositoryImpl.dart';
+import 'package:business_tracker/features/products/data/repository/ProductRepository.dart';
+import 'package:business_tracker/features/products/data/repository/ProductRepositoryImpl.dart';
+import 'package:business_tracker/features/purchase/data/datasources/purchase_remote_data_source.dart';
+import 'package:business_tracker/features/purchase/data/repository/purchase_repository.dart';
+import 'package:business_tracker/features/purchase/data/repository/purchase_repository_impl.dart';
 import 'package:business_tracker/features/vendor/data/datasources/vendor_remote_data_source.dart';
 import 'package:business_tracker/features/vendor/data/repository/vendor_repository.dart';
 import 'package:business_tracker/features/vendor/data/repository/vendor_repository_impl.dart';
+import 'package:business_tracker/features/warehouse/data/datasources/warehouse_remote_data_source.dart';
+import 'package:business_tracker/features/warehouse/data/repository/warehouse_repository.dart';
+import 'package:business_tracker/features/warehouse/data/repository/warehouse_repository_impl.dart';
 import 'package:get_it/get_it.dart';
 import 'package:business_tracker/features/auth/data/datasources/AuthenticationRemoteDataSource.dart';
 import 'package:business_tracker/features/auth/domain/repositories/AuthenticationRepository.dart';
@@ -43,6 +49,10 @@ void setupServiceLocator() {
   getIt.registerLazySingleton<AttributeRemoteDataSource>(
       () => AttributeRemoteDataSource());
   getIt.registerLazySingleton<VendorDataSource>(() => VendorDataSource());
+  getIt.registerLazySingleton<PurchaseRemoteDataSource>(
+      () => PurchaseRemoteDataSource());
+  getIt.registerLazySingleton<WarehouseRemoteDataSource>(
+      () => WarehouseRemoteDataSource());
 
   // Register Repository
   getIt.registerLazySingleton<AuthenticationRepository>(() =>
@@ -51,8 +61,8 @@ void setupServiceLocator() {
   getIt.registerLazySingleton<CompanyRepository>(
       () => CompanyRepositoryImpl(getIt<CompanyRemoteDataSource>()));
 
-  getIt.registerLazySingleton<ProductRepository>(
-      () => ProductRespositoryImpl(getIt<ProductRemoteDataSource>()));
+  getIt.registerLazySingleton<Productrepository>(
+      () => ProductRepositoryImpl(getIt<ProductRemoteDataSource>()));
 
   getIt.registerLazySingleton<Brandrepository>(
       () => BrandRepositoryImpl(getIt<Brandremotedatasource>()));
@@ -68,4 +78,10 @@ void setupServiceLocator() {
 
   getIt.registerLazySingleton<VendorRepository>(
       () => VendorRepositoryImpl(getIt<VendorDataSource>()));
+
+  getIt.registerLazySingleton<PurchaseRepository>(
+      () => PurchaseRepositoryImpl(getIt<PurchaseRemoteDataSource>()));
+
+  getIt.registerLazySingleton<WarehouseRepository>(
+      () => WarehouseRepositoryImpl(getIt<WarehouseRemoteDataSource>()));
 }
