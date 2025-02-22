@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:business_tracker/core/utils/api_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,9 +6,14 @@ class PurchaseRemoteDataSource {
 
   Future<Map<String, dynamic>> getPurchases(int page) async {
     try {
+      final prefs = await SharedPreferences.getInstance();
+      final selectedCompanyId = prefs.getString('selectedCompanyId');
+      if (selectedCompanyId == null) {
+        throw Exception('Company ID not found in SharedPreferences');
+      }
       final response = await _apiClient.request(
         'GET',
-        '/purchase/purchases/',
+        '/purchase/purchase-orders?companies=$selectedCompanyId',
         queryParams: {'page': page.toString()},
       );
       return response;
@@ -28,17 +31,17 @@ class PurchaseRemoteDataSource {
         throw Exception('Company ID not found in SharedPreferences');
       }
 
-      purchaseData['company'] = selectedCompanyId;
-      final jsonData = jsonEncode(purchaseData);
-      print(jsonData);
+      purchaseData['company'] = int.parse(selectedCompanyId);
+
       final response = await _apiClient.request(
         'POST',
         '/purchase/purchase-orders/',
-        body: jsonData,
+        body: purchaseData, // Pass the raw map, NOT jsonEncode(purchaseData)
       );
+
       return response;
-    } catch (e) {
-      throw Exception('Failed to add purchase');
+    } catch (ex) {
+      throw Exception('Failed to add purchase: ${ex.toString()}');
     }
   }
 }

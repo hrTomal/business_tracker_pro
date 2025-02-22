@@ -1,7 +1,5 @@
 import 'package:business_tracker/config/styles/app_dimensions.dart';
 import 'package:business_tracker/core/utils/validation_utils.dart';
-import 'package:business_tracker/features/attribute-types/domain/entities/AttributeTypeResponse.dart';
-import 'package:business_tracker/features/attribute-types/presentation/blocs/AttributeTypeCubit.dart';
 import 'package:business_tracker/features/common/presentation/widgets/CustomAppBar/custom_app_bar.dart';
 import 'package:business_tracker/features/common/presentation/widgets/CustomDropdownFromCubit/custom_dropdown_from_cubit.dart';
 import 'package:business_tracker/features/common/presentation/widgets/InputFields/common_text_input_field.dart';
@@ -32,11 +30,13 @@ class _AddPurchasesPageState extends State<AddPurchasesPage> {
   String _selectedStatus = 'ordered';
   DateTime? _orderedAt;
   DateTime? _expectedDeliveryAt;
+  String? _selectedVendorId;
+  String? _selectedWarehouseId;
   final List<Map<String, TextEditingController>> _lineItems = [];
   @override
   void initState() {
     super.initState();
-    _orderedAt = DateTime.now(); // Set default value to today
+    _orderedAt = DateTime.now();
     _expectedDeliveryAt = DateTime.now();
   }
 
@@ -82,40 +82,82 @@ class _AddPurchasesPageState extends State<AddPurchasesPage> {
                   });
                 },
               ),
-
               const FixedSizedBox(),
               BlocBuilder<VendorCubit, List<Vendor>>(
                 builder: (context, vendors) {
                   return CustomDropdownFromCubit<Vendor>(
-                    label: 'Vendor',
+                    label: 'Vendor *',
                     loadItems: () => context.read<VendorCubit>().loadVendors(),
                     items: vendors,
                     getLabel: (vendor) => vendor.name ?? 'Unknown',
                     getKey: (vendor) => vendor.id.toString(),
-                    selectedValue: null,
+                    selectedValue: _selectedVendorId,
                     onChanged: (selectedId) {
-                      print('Selected vendor ID: \$selectedId');
+                      setState(() {
+                        _selectedVendorId = selectedId;
+                      });
                     },
                   );
                 },
               ),
               const FixedSizedBox(),
-
               BlocBuilder<WarehouseCubit, List<Warehouse>>(
-                builder: (context, state) {
+                builder: (context, warehouses) {
                   return CustomDropdownFromCubit<Warehouse>(
-                    label: 'Warehouse',
+                    label: 'Warehouse *',
                     loadItems: () =>
                         context.read<WarehouseCubit>().loadWarehouses(),
-                    items: state,
-                    getLabel: (item) => item.name ?? "N/A",
-                    getKey: (item) => item.id.toString(),
+                    items: warehouses,
+                    getLabel: (warehouse) => warehouse.name ?? "N/A",
+                    getKey: (warehouse) => warehouse.id.toString(),
+                    selectedValue: _selectedWarehouseId,
                     onChanged: (selectedId) {
-                      print('Selected ID: $selectedId');
+                      setState(() {
+                        _selectedWarehouseId = selectedId;
+                      });
                     },
-                    selectedValue: null,
                   );
                 },
+              ),
+              const FixedSizedBox(),
+              ..._lineItems.asMap().entries.map((entry) {
+                final index = entry.key;
+                final item = entry.value;
+                return Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey), // Add border
+                    borderRadius: BorderRadius.circular(8),
+                    color: Theme.of(context).colorScheme.secondaryContainer,
+                  ),
+                  margin: const EdgeInsets.symmetric(vertical: 8),
+                  child: Column(
+                    children: [
+                      LineItemWidget(itemControllers: item),
+                      IconButton(
+                        icon:
+                            const Icon(Icons.remove_circle, color: Colors.red),
+                        onPressed: () => _removeLineItem(index),
+                      ),
+                    ],
+                  ),
+                );
+              }).toList(),
+              const FixedSizedBox(),
+              SizedBox(
+                width: double.infinity, // Make button full-width
+                child: ElevatedButton(
+                  onPressed: _addLineItem,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor:
+                        Theme.of(context).colorScheme.secondaryContainer,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 8), // Increase height
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8), // Rounded corners
+                    ),
+                  ),
+                  child: const Text('Add Line Item'),
+                ),
               ),
               const FixedSizedBox(),
               CustomTextField(
@@ -124,12 +166,6 @@ class _AddPurchasesPageState extends State<AddPurchasesPage> {
                 hintText: 'Enter delivery fee',
               ),
               const FixedSizedBox(),
-              // CustomTextField(
-              //   controller: controllers['discount']!,
-              //   labelText: 'Discount',
-              //   hintText: 'Enter discount',
-              // ),
-              // const FixedSizedBox(),
               CustomTextField(
                 controller: controllers['note']!,
                 labelText: 'Note',
@@ -172,19 +208,6 @@ class _AddPurchasesPageState extends State<AddPurchasesPage> {
                 },
               ),
               const FixedSizedBox(),
-              ..._lineItems.asMap().entries.map((entry) {
-                final index = entry.key;
-                final item = entry.value;
-                return Column(
-                  children: [
-                    LineItemWidget(itemControllers: item),
-                    IconButton(
-                      icon: const Icon(Icons.remove_circle, color: Colors.red),
-                      onPressed: () => _removeLineItem(index),
-                    ),
-                  ],
-                );
-              }).toList(),
               TextButton(
                 onPressed: _addLineItem,
                 child: const Text('Add Line Item'),
@@ -232,25 +255,19 @@ class _AddPurchasesPageState extends State<AddPurchasesPage> {
 
   void _onSavePressed(
       BuildContext context, Map<String, TextEditingController> controllers) {
-    final errors = ValidationUtils.validateTextFields(
-      [
-        // {
-        //   'controller': controllers['note']!,
-        //   'errorMessage': 'Note is required'
-        // },
+    final errors = <String>[];
 
-        // {
-        //   'controller': controllers['vendor_ref']!,
-        //   'errorMessage': 'Vendor Reference is required'
-        // },
-      ],
-    );
+    if (_selectedVendorId == null || _selectedVendorId!.isEmpty) {
+      errors.add('Vendor selection is required');
+    }
 
-    // Validate line items to ensure there is at least one
+    if (_selectedWarehouseId == null || _selectedWarehouseId!.isEmpty) {
+      errors.add('Warehouse selection is required');
+    }
+
     if (_lineItems.isEmpty) {
       errors.add('At least one line item is required');
     } else {
-      // Validate each line item
       for (var item in _lineItems) {
         errors.addAll(ValidationUtils.validateTextFields([
           {
@@ -263,7 +280,7 @@ class _AddPurchasesPageState extends State<AddPurchasesPage> {
           },
           {
             'controller': item['product']!,
-            'errorMessage': 'Product is required',
+            'errorMessage': 'Product is required'
           },
         ]));
       }
@@ -273,6 +290,8 @@ class _AddPurchasesPageState extends State<AddPurchasesPage> {
       showErrorSnackbar(context: context, errors: errors);
     } else {
       final purchaseData = {
+        'vendor': int.parse(_selectedVendorId ?? "0"),
+        'warehouse': int.parse(_selectedWarehouseId ?? "0"),
         'delivery_fee': controllers['delivery_fee']!.text.trim(),
         'discount': controllers['discount']!.text.trim(),
         'note': controllers['note']!.text.trim(),
@@ -285,16 +304,16 @@ class _AddPurchasesPageState extends State<AddPurchasesPage> {
         'status': _selectedStatus,
         'line_items': _lineItems
             .map((item) => {
-                  'quantity': int.tryParse(item['quantity']!.text) ?? 0,
-                  'discount': item['discount']!.text.trim(),
+                  'quantity': int.parse(item['quantity']!.text.trim()),
                   'unit_price': item['unit_price']!.text.trim(),
                   'vat': item['vat']!.text.trim(),
-                  'product': int.tryParse(item['product']!.text) ?? 0,
+                  'product': int.parse(item['product']!.text.trim()),
+                  "discount": item['discount']!.text.trim(),
                 })
             .toList(),
       };
 
-      print(purchaseData);
+      // print(purchaseData);
 
       final purchaseCubit = context.read<PurchaseCubit>();
       purchaseCubit.addPurchase(purchaseData).then((_) {

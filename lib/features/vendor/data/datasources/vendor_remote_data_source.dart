@@ -8,7 +8,7 @@ class VendorDataSource {
     try {
       final response = await _apiClient.request(
         'GET',
-        '/purchase/vendors/',
+        '/vendor/vendors/',
         queryParams: {'page': page.toString()},
       );
       return response;
